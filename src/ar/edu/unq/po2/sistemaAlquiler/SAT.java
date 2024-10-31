@@ -1,5 +1,6 @@
 package ar.edu.unq.po2.sistemaAlquiler;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +17,19 @@ public class SAT {
 		usuarios = new ArrayList<Usuario>();
 	}
 	
-	public List<Inmueble> busquedaDelInquilino(Inquilino inquilino){
-		return null;
+	public List<Inmueble> busquedaDelInquilino(Usuario usuario,String ciudad, LocalDate fechaEntrada,LocalDate fechaSalida,int cantHuespuedes, Double minPrecio, Double maxPrecio){
+		List<Inmueble> inmuebles = new ArrayList<Inmueble>();
+		
+		if(this.usuarioPerteneceAlSAT(usuario)) {
+		
+		}
+		
+		return inmuebles;
+	}
+
+	public boolean usuarioPerteneceAlSAT(Usuario usuario) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }
