@@ -11,5 +11,5 @@ public class Usuario {
 		this.telefono = telefono;
 		this.mail = mail;
 	}
-
+	
 }

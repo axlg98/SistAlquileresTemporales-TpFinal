@@ -21,7 +21,7 @@ public class SAT {
 		List<Inmueble> inmuebles = new ArrayList<Inmueble>();
 		
 		if(this.usuarioPerteneceAlSAT(usuario)) {
-		
+			
 		}
 		
 		return inmuebles;
@@ -29,7 +29,7 @@ public class SAT {
 
 	public boolean usuarioPerteneceAlSAT(Usuario usuario) {
 		// TODO Auto-generated method stub
-		return false;
+		return this.usuarios.contains(usuario);
 	}
 	
 }
