@@ -1,9 +1,9 @@
 package ar.edu.unq.po2.reserva;
 
-public class Reserva {
+import ar.edu.unq.po2.sistemaAlquiler.Inmueble;
 
-	public Reserva() {
-		// TODO Auto-generated constructor stub
-	}
+public interface Reserva {
+
+	public void estadoDeReserva(Inmueble inmueble);
 
 }
