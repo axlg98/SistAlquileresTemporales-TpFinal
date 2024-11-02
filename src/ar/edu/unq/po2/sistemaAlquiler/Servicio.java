@@ -6,4 +6,7 @@ public class Servicio {
 	public Servicio(String nombre) {
 		this.nombre = nombre;
 	}
+	public String getNombre() {
+		return this.nombre;
+	}
 }
