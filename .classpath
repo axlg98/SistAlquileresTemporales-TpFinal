@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
@@ -8,10 +9,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
-	<classpathentry kind="lib" path="C:/Users/dcesaro/OneDrive/dcesaro/OneDrive - Facultad de Psicología - UBA/UNQ/POO2/Mockito v5/byte-buddy-1.14.4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/dcesaro/OneDrive/dcesaro/OneDrive - Facultad de Psicología - UBA/UNQ/POO2/Mockito v5/byte-buddy-agent-1.14.4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/dcesaro/OneDrive/dcesaro/OneDrive - Facultad de Psicología - UBA/UNQ/POO2/Mockito v5/mockito-core-5.3.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/dcesaro/OneDrive/dcesaro/OneDrive - Facultad de Psicología - UBA/UNQ/POO2/Mockito v5/mockito-subclass-5.3.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/dcesaro/OneDrive/dcesaro/OneDrive - Facultad de Psicología - UBA/UNQ/POO2/Mockito v5/objenesis-3.3.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/mockito"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
