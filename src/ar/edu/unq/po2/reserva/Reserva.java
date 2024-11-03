@@ -1,9 +1,28 @@
 package ar.edu.unq.po2.reserva;
 
-import ar.edu.unq.po2.sistemaAlquiler.Inmueble;
+public class Reserva {
 
-public interface Reserva {
+	private EstadoReserva estado;
+	
+	public Reserva(EstadoReserva estado) {
+		this.estado = estado;
+	}
 
-	public void estadoDeReserva(Inmueble inmueble);
+	public void setEstado(EstadoReserva estado) {
+		this.estado = estado;
+	}
+	
+	public void aceptarReserva() {
+		estado.aceptarReserva(this);
+	}
+	
+	public void cancelarReserva() {
+		estado.cancelarReserva(this);
+	}
+	
+	public void solicitarEstadoReserva() {
+		estado.solicitarEstadoReserva();
+	}
+	
 
 }
