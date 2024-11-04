@@ -1,6 +1,2 @@
 /bin/
-byte-buddy-1.14.4.jar
-byte-buddy-agent-1.14.4.jar
-mockito-core-5.3.1.jar
-mockito-subclass-5.3.1.jar
-objenesis-3.3.jar
+
