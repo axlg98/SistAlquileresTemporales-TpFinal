@@ -15,10 +15,10 @@ class ReservaTest {
 
 	Reserva reserva;
 	Reserva r1;
-	ReservaAceptada aceptada;
-	ReservaPendiente pendiente;
-	ReservaCancelada cancelada;
-	ReservaCompletada completada;
+	EstadoReserva aceptada;
+	EstadoReserva pendiente;
+	EstadoReserva cancelada;
+	EstadoReserva completada;
 
 	@BeforeEach
 	void setUp() {
@@ -28,13 +28,13 @@ class ReservaTest {
 		cancelada  = mock(ReservaCancelada.class);
 		completada = mock(ReservaCompletada.class);
 		
-		reserva = new Reserva(aceptada,LocalDate.now(), LocalDate.of(2024,11, 10));
+		reserva = new Reserva(LocalDate.now(), LocalDate.of(2024,11, 10));
 	}
 
 	@Test
 	void EstadoDeLaReservaActualTest() {
 		reserva.solicitarEstadoReserva();
-		assertEquals(reserva.getEstado(),aceptada);
+		assertTrue(reserva.getEstado() instanceof ReservaAceptada);
 	}
 	
 	@Test
@@ -42,7 +42,7 @@ class ReservaTest {
 		when(r1.getEstado()).thenReturn(aceptada);
 		reserva.cancelarReserva();
 		reserva.solicitarEstadoReserva();
-		assertEquals(reserva.getEstado(),aceptada);
+		assertTrue(reserva.getEstado() instanceof ReservaCancelada);
 		//verify(r1.getEstado(), times(0)).cancelarReserva(r1);
 	}
 
