@@ -30,20 +30,115 @@ class ReservaTest {
 		
 		reserva = new Reserva(LocalDate.now(), LocalDate.of(2024,11, 10));
 	}
-
+	
+	@Test
+	void fechaInicioTest() {
+		assertEquals(reserva.getFechaInicio(), LocalDate.now());
+	}
+	
+	@Test
+	void fechaFinTest() {
+		assertEquals(reserva.getFechaFin(), LocalDate.of(2024,11, 10));
+	}
+	
 	@Test
 	void EstadoDeLaReservaActualTest() {
 		reserva.solicitarEstadoReserva();
+		assertTrue(reserva.getEstado() instanceof ReservaPendiente);
+	}
+	
+	@Test
+	void ReservaConfirmadaTest() {
+		reserva.aceptarReserva();
+		reserva.solicitarEstadoReserva();
+		//reserva.aceptarReserva();
+		assertTrue(reserva.getEstado() instanceof ReservaAceptada);
+		
+	}
+	
+	@Test
+	void CancelandoLaReservaTest() {
+		reserva.cancelarReserva();
+		reserva.solicitarEstadoReserva();
+		assertTrue(reserva.getEstado() instanceof ReservaCancelada);
+	}
+	
+	@Test
+	void CancelandoLaReservaConfirmadaTest() {
+		reserva.aceptarReserva();
+		reserva.solicitarEstadoReserva();
+		reserva.cancelarReserva();
+		assertTrue(reserva.getEstado() instanceof ReservaCancelada);
+	}
+	
+	@Test
+	void ReservaCompletadaTest() {
+		reserva.aceptarReserva();
+		reserva.solicitarEstadoReserva();
+		reserva.reservaCompletada();
+		assertTrue(reserva.getEstado() instanceof ReservaCompletada);
+	}
+	
+	@Test
+	void AceptarReservaCompletadaTest() {
+		reserva.aceptarReserva();
+		reserva.reservaCompletada();
+		reserva.aceptarReserva();
+		reserva.solicitarEstadoReserva();
+		assertTrue(reserva.getEstado() instanceof ReservaCompletada);
+	}
+	
+	@Test
+	void CancelarReservaCompletadaTest() {
+		reserva.aceptarReserva();
+		reserva.reservaCompletada();
+		reserva.cancelarReserva();
+		reserva.solicitarEstadoReserva();
+		assertTrue(reserva.getEstado() instanceof ReservaCompletada);
+	}
+	
+	@Test
+	void CompletarLaReservaCompletadaTest() {
+		reserva.aceptarReserva();
+		reserva.reservaCompletada();
+		reserva.reservaCompletada();
+		reserva.solicitarEstadoReserva();
+		assertTrue(reserva.getEstado() instanceof ReservaCompletada);
+	}
+	
+	@Test
+	void CancelarReservaCanceladaTest() {
+		reserva.cancelarReserva();
+		reserva.cancelarReserva();
+		assertTrue(reserva.getEstado() instanceof ReservaCancelada);
+	}
+	
+	@Test
+	void AceptarReservaCanceladaTest() {
+		reserva.cancelarReserva();
+		reserva.aceptarReserva();
+		assertTrue(reserva.getEstado() instanceof ReservaCancelada);
+	}
+	
+	@Test
+	void CompletarReservaCanceladaTest() {
+		reserva.cancelarReserva();
+		reserva.reservaCompletada();
+		assertTrue(reserva.getEstado() instanceof ReservaCancelada);
+	}
+	
+	@Test
+	void AceptarLaReservaConfirmadaTest() {
+		reserva.aceptarReserva();
+		reserva.solicitarEstadoReserva();
+		reserva.aceptarReserva();
 		assertTrue(reserva.getEstado() instanceof ReservaAceptada);
 	}
 	
 	@Test
-	void EstadoDeLaReservaConfirmadaCancelandoLaReservaTest() {
-		when(r1.getEstado()).thenReturn(aceptada);
-		reserva.cancelarReserva();
-		reserva.solicitarEstadoReserva();
-		assertTrue(reserva.getEstado() instanceof ReservaCancelada);
-		//verify(r1.getEstado(), times(0)).cancelarReserva(r1);
+	void CompletarReservaPendienteTest() {
+		reserva.reservaCompletada();
+		assertTrue(reserva.getEstado() instanceof ReservaPendiente);
 	}
 
 }

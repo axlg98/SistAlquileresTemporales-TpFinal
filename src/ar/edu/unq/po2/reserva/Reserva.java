@@ -25,6 +25,10 @@ public class Reserva {
 		this.getEstado().solicitarEstadoReserva();
 	}
 	
+	public void reservaCompletada() {
+		this.getEstado().completarReserva(this);
+	}
+	
 	//GETTER Y SETTER
 
 	public LocalDate getFechaInicio() {
