@@ -8,7 +8,9 @@ import ar.edu.unq.po2.reserva.Reserva;
 
 
 
+
 public class SinCancelacion implements IPoliticaCancelacion {
+
 
 	@Override
 	public Double costoDeCancelacion(Reserva reserva, LocalDate fechaCancelacion, Double precio) {

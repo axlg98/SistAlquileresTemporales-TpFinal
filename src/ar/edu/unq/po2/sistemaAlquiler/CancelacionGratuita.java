@@ -6,7 +6,9 @@ import ar.edu.unq.po2.reserva.Reserva;
 
 
 
+
 public class CancelacionGratuita implements IPoliticaCancelacion{
+
 
 	@Override
 	public Double costoDeCancelacion(Reserva reserva, LocalDate fechaCancelacion, Double precio) {
@@ -16,12 +18,13 @@ public class CancelacionGratuita implements IPoliticaCancelacion{
 		
 		LocalDate fechaLimiteDeCancelacion = reserva.getFechaInicio().minusDays(10);
 		
-		if(fechaCancelacion.isBefore(fechaLimiteDeCancelacion) || fechaCancelacion.isEqual(fechaLimiteDeCancelacion)) {
+
+		if(esAntesDeFechaLimite(fechaCancelacion, fechaLimiteDeCancelacion) || esMismaFechaLimite(fechaCancelacion, fechaLimiteDeCancelacion)) {
 			
 			return precio * 0;
 			
-		} 
-		else {
+		} else {
+
 			
 			// abona el precio de dos días de alquiler por haber pasado la fecha limite
 			
@@ -29,6 +32,16 @@ public class CancelacionGratuita implements IPoliticaCancelacion{
 			
 		}
 	}
+
+
+	private boolean esMismaFechaLimite(LocalDate fechaCancelacion, LocalDate fechaLimiteDeCancelacion) {
+		return fechaCancelacion.isEqual(fechaLimiteDeCancelacion);
+	}
+
+	private boolean esAntesDeFechaLimite(LocalDate fechaCancelacion, LocalDate fechaLimiteDeCancelacion) {
+		return fechaCancelacion.isBefore(fechaLimiteDeCancelacion);
+	}
+
 
 	
 
