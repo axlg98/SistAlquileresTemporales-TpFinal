@@ -9,8 +9,8 @@ public class ReservaAceptada implements EstadoReserva{
 	
 	@Override
 	public void cancelarReserva(Reserva reserva) {
-		reserva.setEstado(new ReservaCancelada());
 		System.out.println(" reserva cancelada.");
+		reserva.setEstado(new ReservaCancelada());
 	}
 	
 	@Override

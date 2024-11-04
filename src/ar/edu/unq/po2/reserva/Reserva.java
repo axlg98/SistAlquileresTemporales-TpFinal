@@ -14,15 +14,18 @@ public class Reserva {
 	}
 
 	public void aceptarReserva() {
-		estado.aceptarReserva(this);
+		System.out.println("Estado Actual: ");
+		this.getEstado().aceptarReserva(this);
 	}
 	
 	public void cancelarReserva() {
-		estado.cancelarReserva(this);
+		System.out.println("Estado Actual: ");
+		this.getEstado().cancelarReserva(this);
+		System.out.println("Estado Actual: " + this.getEstado());
 	}
 	
 	public void solicitarEstadoReserva() {
-		estado.solicitarEstadoReserva();
+		this.getEstado().solicitarEstadoReserva();
 	}
 	
 	//GETTER Y SETTER

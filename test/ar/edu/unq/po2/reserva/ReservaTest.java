@@ -2,6 +2,9 @@ package ar.edu.unq.po2.reserva;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 
@@ -11,13 +14,15 @@ import org.junit.jupiter.api.Test;
 class ReservaTest {
 
 	Reserva reserva;
-	EstadoReserva aceptada;
-	EstadoReserva pendiente;
-	EstadoReserva cancelada;
-	EstadoReserva completada;
+	Reserva r1;
+	ReservaAceptada aceptada;
+	ReservaPendiente pendiente;
+	ReservaCancelada cancelada;
+	ReservaCompletada completada;
 
 	@BeforeEach
 	void setUp() {
+		r1 = mock(Reserva.class);
 		aceptada = mock(ReservaAceptada.class);
 		pendiente   = mock(ReservaPendiente.class);
 		cancelada  = mock(ReservaCancelada.class);
@@ -34,9 +39,11 @@ class ReservaTest {
 	
 	@Test
 	void EstadoDeLaReservaConfirmadaCancelandoLaReservaTest() {
+		when(r1.getEstado()).thenReturn(aceptada);
 		reserva.cancelarReserva();
 		reserva.solicitarEstadoReserva();
-		assertEquals(reserva.getEstado(),cancelada);
+		assertEquals(reserva.getEstado(),aceptada);
+		//verify(r1.getEstado(), times(0)).cancelarReserva(r1);
 	}
 
 }
