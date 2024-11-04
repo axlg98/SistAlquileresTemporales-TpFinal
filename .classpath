@@ -9,6 +9,5 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/mockitoV4"/>
-	<classpathentry kind="lib" path="/home/axllg/Escritorio/mockito"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
