@@ -9,6 +9,11 @@ public class ReservaPendiente extends EstadoReserva{
 	}
 	
 	@Override
+	public  void completarReserva(Reserva reserva) {
+		System.out.println("La Reserva le falta ser aceptada para completar.");
+	}
+	
+	@Override
 	public void cancelarReserva(Reserva reserva) {
 		reserva.setEstado(new ReservaCancelada());
 		System.out.println(" reserva cancelada.");

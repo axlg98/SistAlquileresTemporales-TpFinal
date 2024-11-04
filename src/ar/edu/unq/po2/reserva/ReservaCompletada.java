@@ -8,6 +8,11 @@ public class ReservaCompletada extends EstadoReserva{
 	}
 	
 	@Override
+	public  void completarReserva(Reserva reserva) {
+		System.out.println("La Reserva ya fue completada.");
+	}
+	
+	@Override
 	public void cancelarReserva(Reserva reserva) {
 		System.out.println(" La Reserva no se puede cancelar.");
 	}

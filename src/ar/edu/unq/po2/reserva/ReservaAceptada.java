@@ -8,6 +8,12 @@ public class ReservaAceptada extends EstadoReserva{
 	}
 	
 	@Override
+	public  void completarReserva(Reserva reserva) {
+		System.out.println("Reserva completada");
+		reserva.setEstado(new ReservaCompletada());
+	}
+	
+	@Override
 	public void cancelarReserva(Reserva reserva) {
 		System.out.println(" reserva cancelada.");
 		reserva.setEstado(new ReservaCancelada());
