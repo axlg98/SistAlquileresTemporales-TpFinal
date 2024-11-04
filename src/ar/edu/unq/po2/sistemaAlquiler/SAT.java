@@ -13,6 +13,7 @@ public class SAT {
 	private List<Usuario> usuarios;	
 
 	public SAT() {
+		
 		inmuebles = new ArrayList<Inmueble>();
 		usuarios = new ArrayList<Usuario>();
 	}
