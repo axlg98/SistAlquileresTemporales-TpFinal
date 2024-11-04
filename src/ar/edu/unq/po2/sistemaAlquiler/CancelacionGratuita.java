@@ -16,7 +16,7 @@ public class CancelacionGratuita implements IPoliticaCancelacion{
 		
 		LocalDate fechaLimiteDeCancelacion = reserva.getFechaInicio().minusDays(10);
 		
-		if(fechaCancelacion.isBefore(fechaLimiteDeCancelacion) || fechaCancelacion.isEqual(fechaLimiteDeCancelacion)) {
+		if(esAntesDeFechaLimite(fechaCancelacion, fechaLimiteDeCancelacion) || esMismaFechaLimite(fechaCancelacion, fechaLimiteDeCancelacion)) {
 			
 			return precio * 0;
 			
@@ -28,6 +28,14 @@ public class CancelacionGratuita implements IPoliticaCancelacion{
 			return precio * 2;
 			
 		}
+	}
+
+	private boolean esMismaFechaLimite(LocalDate fechaCancelacion, LocalDate fechaLimiteDeCancelacion) {
+		return fechaCancelacion.isEqual(fechaLimiteDeCancelacion);
+	}
+
+	private boolean esAntesDeFechaLimite(LocalDate fechaCancelacion, LocalDate fechaLimiteDeCancelacion) {
+		return fechaCancelacion.isBefore(fechaLimiteDeCancelacion);
 	}
 
 	
