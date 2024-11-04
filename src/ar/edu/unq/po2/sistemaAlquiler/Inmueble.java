@@ -31,7 +31,7 @@ public class Inmueble {
 	}
 	
 	public void addFoto(String foto) {
-		if(this.getFotos().size() == 5) {
+		if(this.getFotos().size() > 5) {
 			System.out.println("Se alcanzó el máximo permitido de fotos.");
 		}else {
 			this.getFotos().add(foto);
