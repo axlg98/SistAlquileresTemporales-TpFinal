@@ -7,21 +7,18 @@ public class Reserva {
 	private LocalDate fechaFin;
 	private EstadoReserva estado;
 	
-	public Reserva(EstadoReserva estado,LocalDate fechaInicio, LocalDate fechaFin) {
-		this.estado = estado;
+	public Reserva(LocalDate fechaInicio, LocalDate fechaFin) {
+		this.estado = new ReservaPendiente();
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
 	}
 
 	public void aceptarReserva() {
-		System.out.println("Estado Actual: ");
 		this.getEstado().aceptarReserva(this);
 	}
 	
 	public void cancelarReserva() {
-		System.out.println("Estado Actual: ");
 		this.getEstado().cancelarReserva(this);
-		System.out.println("Estado Actual: " + this.getEstado());
 	}
 	
 	public void solicitarEstadoReserva() {
@@ -39,7 +36,7 @@ public class Reserva {
 	}
 	
 	public EstadoReserva getEstado() { //Solamente para probar test temporal.
-		return estado;
+		return this.estado;
 	}
 	
 	public void setEstado(EstadoReserva estado) {

@@ -1,6 +1,6 @@
 package ar.edu.unq.po2.reserva;
 
-public class ReservaPendiente implements EstadoReserva{
+public class ReservaPendiente extends EstadoReserva{
 	
 	@Override
 	public void aceptarReserva(Reserva reserva) {
