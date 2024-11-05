@@ -20,13 +20,16 @@ public class Intermedia implements IPoliticaCancelacion {
 		
 		long totalDias = ChronoUnit.DAYS.between(reserva.getFechaInicio(), reserva.getFechaFin());
 		
-		if(fechaCancelacionAntesDeFechaLimiteDe20Dias(fechaCancelacion, fechaLimiteDeCancelacion)) {
+		if(fechaCancelacionAntesDeFechaLimiteDe20Dias(fechaCancelacion, fechaLimiteDeCancelacion)
+				|| fechaCancelacionEsDia20(fechaCancelacion, fechaLimiteDeCancelacion)) {
 			// antes de los 20 dias 
 			return precio * 0;
 			
 		} //entre dia 19 a 10 
-		else if((fechaCancelacionDespuesDeFechaLimiteDe20Dias(fechaCancelacion, fechaLimiteDeCancelacion) || 
-				fechaCancelacionEsElDia19(fechaCancelacion, fechaLimiteDeCancelacion)) 
+		else if((fechaCancelacionEsElDia19(fechaCancelacion, fechaLimiteDeCancelacion)||
+				fechaCancelacionDespuesDeFechaLimiteDe20Dias(fechaCancelacion, fechaLimiteDeCancelacion)) 
+	
+				
 				
 				&&
 	            (fechaCancelacionAntesDeFechaLimiteDe20Dias(fechaCancelacion, fechaLimiteDeCancelacion50Porciento) || 
@@ -39,6 +42,11 @@ public class Intermedia implements IPoliticaCancelacion {
 			return totalDias * precio;
 		}
 		
+	}
+
+	private boolean fechaCancelacionEsDia20(LocalDate fechaCancelacion, LocalDate fechaLimiteDeCancelacion) {
+		// TODO Auto-generated method stub
+		return fechaCancelacion.isEqual(fechaLimiteDeCancelacion);
 	}
 
 	private boolean fechaCancelacionEsDia10(LocalDate fechaCancelacion, LocalDate fechaLimiteDeCancelacion50Porciento) {
@@ -59,11 +67,5 @@ public class Intermedia implements IPoliticaCancelacion {
 		return fechaCancelacion.isBefore(fechaLimiteDeCancelacion);
 	}
 	
-
-	
-
-
-	
-
 	
 }
