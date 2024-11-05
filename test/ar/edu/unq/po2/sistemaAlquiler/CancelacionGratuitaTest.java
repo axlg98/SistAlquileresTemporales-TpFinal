@@ -16,7 +16,7 @@ class CancelacionGratuitaTest {
 	
 	private CancelacionGratuita cGratuita;
 	private Reserva reserva;
-	private Inmueble inmueble;
+	
 	@BeforeEach
 	void setUp() throws Exception {
 		cGratuita = new CancelacionGratuita();
