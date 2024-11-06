@@ -5,4 +5,8 @@ public abstract class EstadoReserva {
 	public abstract void cancelarReserva(Reserva reserva);
 	public abstract void completarReserva(Reserva reserva);
 	public abstract void solicitarEstadoReserva();
+	
+	public boolean isConfirmada() {
+		return false;
+	}
 }

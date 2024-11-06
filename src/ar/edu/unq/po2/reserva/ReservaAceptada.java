@@ -3,6 +3,11 @@ package ar.edu.unq.po2.reserva;
 public class ReservaAceptada extends EstadoReserva{
 	
 	@Override
+	public boolean isConfirmada() {
+		return true;
+	}
+	
+	@Override
 	public void aceptarReserva(Reserva reserva) {
 		System.out.println("La reserva ya está Confirmada.");
 	}
