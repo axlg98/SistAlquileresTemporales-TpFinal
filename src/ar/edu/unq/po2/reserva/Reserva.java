@@ -12,6 +12,14 @@ public class Reserva {
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
 	}
+	
+	//Confirma si la reserva es aceptada.
+	
+	public boolean isConfirmada() {
+		return this.getEstado().isConfirmada();
+	}
+	
+	//Parte del State
 
 	public void aceptarReserva() {
 		this.getEstado().aceptarReserva(this);
