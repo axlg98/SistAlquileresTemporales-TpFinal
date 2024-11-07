@@ -40,12 +40,12 @@ public class Propietario extends Usuario{
 	public List<Reserva> todasLasReservasAceptadas(){
 		List<Reserva> reservasAceptadas = new ArrayList<Reserva>();
 		for(Inmueble inmueble : this.getInmuebles()) {
-			reservasAceptadas.addAll(this.reservasAceptadasDelInmuebleSiCorresponde(inmueble));
+			reservasAceptadas.addAll(this.reservasAceptadasDelInmueble(inmueble));
 		}
 		return reservasAceptadas;
 	}
 	
-	public List<Reserva> reservasAceptadasDelInmuebleSiCorresponde(Inmueble inmueble){
+	public List<Reserva> reservasAceptadasDelInmueble(Inmueble inmueble){
 		return inmueble.getReservas().stream().filter(r -> r.isConfirmada()).toList();
 		
 	}
