@@ -16,18 +16,18 @@ public class Propietario extends Usuario{
 	//Aceptar la Reserva de un Inquilino
 	
 	public void aceptarReservaInquilino(Reserva reserva) {
-		if(!reserva.isConfirmada()) {
+		if(reserva.isConfirmada()) {
+			System.out.println("La Reserva ya fue aceptada previamente.");
+		}else {
 			reserva.aceptarReserva();
 			System.out.println("La Reserva fue aceptada correctamente.");
-		}else {
-			System.out.println("La Reserva ya fue aceptada previamente.");
 		}
 	}
 	
 	//Rechazar la Reserva de un Inquilino
 	
 	public void cancelarReservaInquilino(Reserva reserva) {
-		if(reserva.isConfirmada()) {
+		if(!reserva.isConfirmada()) {
 			reserva.cancelarReserva();
 			System.out.println("La Reserva fue cancelada correctamente.");
 		}else {
