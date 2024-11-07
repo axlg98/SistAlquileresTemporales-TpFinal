@@ -3,8 +3,11 @@ package ar.edu.unq.po2.usuario;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import java.time.LocalDate;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,15 +44,16 @@ class PropietarioTest {
 		inmueble2 = mock(Inmueble.class);
 		
 		reserva = mock(Reserva.class);
-		r2 = mock(Reserva.class);
+		r2      = mock(Reserva.class);
 		
-		aceptada = mock(ReservaAceptada.class);
-		pendiente   = mock(ReservaPendiente.class);
+		aceptada   = mock(ReservaAceptada.class);
+		pendiente  = mock(ReservaPendiente.class);
 		cancelada  = mock(ReservaCancelada.class);
 		completada = mock(ReservaCompletada.class);
 		
 		propietario.addInmueble(inmueble1);
 		propietario.addInmueble(inmueble2);
+		
 	}
 
 	@Test
@@ -106,14 +110,31 @@ class PropietarioTest {
 		//Arreglar
 		
 		when(reserva.getEstado()).thenReturn(aceptada);
-		when(r2.getEstado()).thenReturn(cancelada);
+		when(r2.getEstado()).thenReturn(aceptada);
+		
 		propietario.aceptarReservaInquilino(reserva);
 		propietario.aceptarReservaInquilino(r2);
+		
 		inmueble1.addReserva(reserva);
 		inmueble2.addReserva(r2);
 		
-		
 		assertEquals(propietario.todasLasReservasAceptadas().size(),0);
+	}
+	
+	@Test
+	void ProbarQueSeCancelaLaReserva() { //Arreglar
+		
+		//setUp
+		
+		when(reserva.getEstado()).thenReturn(pendiente);
+		
+		//exercise
+		
+		propietario.aceptarReservaInquilino(reserva);
+		
+		//Verify
+		
+		verify(reserva,times(1)).cancelarReserva();
 	}
 	
 	//Probando un Spy
