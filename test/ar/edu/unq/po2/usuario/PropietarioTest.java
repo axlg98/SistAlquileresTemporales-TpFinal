@@ -35,6 +35,9 @@ class PropietarioTest {
 	EstadoReserva pendiente;
 	EstadoReserva cancelada;
 	EstadoReserva completada;
+	
+	List<Reserva> reservas;
+	List<Inmueble> inmuebles;
 
 	@BeforeEach
 	void setUp(){
@@ -55,7 +58,8 @@ class PropietarioTest {
 		propietario.addInmueble(inmueble1);
 		propietario.addInmueble(inmueble2);
 		
-		List<Reserva> reservas = mock(List.class);
+		 reservas = mock(List.class);
+		 inmuebles = mock(List.class);
 	}
 
 	@Test
@@ -111,8 +115,9 @@ class PropietarioTest {
 		
 		//Arreglar
 		
-		when(reserva.getEstado()).thenReturn(aceptada);
-		when(r2.getEstado()).thenReturn(aceptada);
+		
+		
+		
 		
 		propietario.aceptarReservaInquilino(reserva);
 		propietario.aceptarReservaInquilino(r2);
