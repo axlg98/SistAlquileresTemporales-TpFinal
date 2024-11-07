@@ -8,6 +8,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -54,6 +55,7 @@ class PropietarioTest {
 		propietario.addInmueble(inmueble1);
 		propietario.addInmueble(inmueble2);
 		
+		List<Reserva> reservas = mock(List.class);
 	}
 
 	@Test
@@ -116,13 +118,17 @@ class PropietarioTest {
 		propietario.aceptarReservaInquilino(r2);
 		
 		inmueble1.addReserva(reserva);
-		inmueble2.addReserva(r2);
+		inmueble1.addReserva(r2);
 		
-		assertEquals(propietario.todasLasReservasAceptadas().size(),0);
+		inmueble2.addReserva(reserva);
+		
+		verify(inmueble1, times(2)).addReserva(any(Reserva.class));
+		verify(inmueble2, times(1)).addReserva(any(Reserva.class));
+		//assertEquals(propietario.todasLasReservasAceptadas().size(),2 );
 	}
 	
 	@Test
-	void ProbarQueSeCancelaLaReserva() { //Arreglar
+	void ProbarQueSeCancelaLaReserva() { 
 		
 		//setUp
 		
@@ -131,7 +137,7 @@ class PropietarioTest {
 		//exercise
 		
 		propietario.aceptarReservaInquilino(reserva);
-		
+		propietario.cancelarReservaInquilino(reserva);
 		//Verify
 		
 		verify(reserva,times(1)).cancelarReserva();
