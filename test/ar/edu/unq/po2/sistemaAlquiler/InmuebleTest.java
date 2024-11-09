@@ -12,10 +12,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import ar.edu.unq.po2.reserva.Reserva;
+import ar.edu.unq.po2.usuario.Propietario;
 import ar.edu.unq.po2.usuario.Ranking;
 
 class InmuebleTest {
 	private Inmueble			inmueble;
+	private Propietario			propietario;
 	private TipoInmueble 	  	tipoInmueble;
 	private Double 		 	  	superficie;
 	private String 		 	  	pais;
@@ -46,6 +48,7 @@ class InmuebleTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
+		this.propietario		 = mock(Propietario.class);
 		this.tipoInmueble 		 = mock(TipoInmueble.class);
 		this.superficie  		 = 70.0;
 		this.pais		 		 = "Argentina";
@@ -75,15 +78,51 @@ class InmuebleTest {
 		this.categoriaRankeo1	 = mock(CategoriaRankeo.class);
 		this.categoriaRankeo2	 = mock(CategoriaRankeo.class);
 		
-		this.inmueble			 = new Inmueble(tipoInmueble, superficie, pais, ciudad, direccion, capacidad, checkIn, checkOut,
-												precio, politicaCancelacion, servicios, fotos, formasDePago);
+		this.inmueble			 = new Inmueble(propietario, tipoInmueble, superficie, pais, ciudad, direccion, capacidad, 
+												checkIn, checkOut, precio, politicaCancelacion, servicios, fotos, formasDePago);
 	}
 
 	@Test
 	void testConstructor() {
 		assertNotNull(inmueble);
 	}
-
+	
+	@Test
+	void testGetPropietario(){
+		assertEquals(propietario, inmueble.getPropietario());
+	}
+	
+	@Test
+	void testGetServicios(){
+		assertEquals(servicios, inmueble.getServicios());
+	}
+	
+	@Test
+	void testGetFotos(){
+		assertEquals(fotos, inmueble.getFotos());
+	}
+	
+	@Test
+	void testGetFormasDePago(){
+		assertEquals(formasDePago, inmueble.getFormasDePago());
+	}
+	
+	@Test
+	void testGetAlquileres(){
+		assertEquals(alquileres, inmueble.getAlquileres());
+	}
+	
+	@Test
+	void testGetReservas(){
+		assertEquals(reservas, inmueble.getReservas());
+	}
+	
+	@Test
+	void testGetRankeos(){
+		assertEquals(rankeos, inmueble.getRankeos());
+	}
+	
+	
 	@Test
 	void testAddServicio() {
 		inmueble.addServicio(servicio);
