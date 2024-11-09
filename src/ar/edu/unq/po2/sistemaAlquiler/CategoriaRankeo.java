@@ -2,14 +2,20 @@ package ar.edu.unq.po2.sistemaAlquiler;
 
 public class CategoriaRankeo {
 	
-	private String nombre;
+	private String 	   nombre;
+	private IRankeable entidad;
 	
-	public CategoriaRankeo(String nombre) {
-		this.nombre = nombre;
+	public CategoriaRankeo(String nombre, IRankeable entidad) {
+		this.nombre  = nombre;
+		this.entidad = entidad;
 	}
 
 	public String getNombre() {
 		return nombre;
+	}
+
+	public IRankeable getEntidad() {
+		return entidad;
 	}
 	
 }
