@@ -2,15 +2,19 @@ package ar.edu.unq.po2.reserva;
 
 import java.time.LocalDate;
 
+import ar.edu.unq.po2.usuario.Inquilino;
+
 public class Reserva {
 	private LocalDate fechaInicio;
 	private LocalDate fechaFin;
 	private EstadoReserva estado;
+	private Inquilino inquilino;
 	
-	public Reserva(LocalDate fechaInicio, LocalDate fechaFin) {
+	public Reserva(LocalDate fechaInicio, LocalDate fechaFin,Inquilino inquilino) {
 		this.estado = new ReservaPendiente();
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
+		this.inquilino = inquilino;
 	}
 	
 	//Confirma si la reserva es aceptada.
