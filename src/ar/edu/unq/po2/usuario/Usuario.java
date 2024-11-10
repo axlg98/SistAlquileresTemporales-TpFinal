@@ -1,8 +1,13 @@
 package ar.edu.unq.po2.usuario;
 
-import ar.edu.unq.po2.reserva.Reserva;
+import java.time.LocalDate;
+import java.util.List;
 
-public class Usuario implements Propietario{
+import ar.edu.unq.po2.reserva.Reserva;
+import ar.edu.unq.po2.sistemaAlquiler.Inmueble;
+import ar.edu.unq.po2.sistemaAlquiler.SAT;
+
+public class Usuario implements Propietario, Inquilino{
 	
 	private String nombreCompleto;
 	private String telefono;
@@ -27,5 +32,23 @@ public class Usuario implements Propietario{
 			System.out.println("La Reserva fue aceptada correctamente.");
 		}
 	}
+
+	@Override
+	public void reservarInmueble(Inmueble inmueble, LocalDate fechaInicio, LocalDate fechaFin) {
+		Reserva reserva = new Reserva(fechaInicio, fechaFin);
+		inmueble.addReserva(reserva);
+		
+	}
+
+	@Override
+	public List<Inmueble> buscarAlquiler(SAT sat, String ciudad, LocalDate fechaEntrada, LocalDate fechaSalida,
+			int cantHuespuedes, Double minPrecio, Double maxPrecio) {
+		return sat.busquedaDelInquilino(this, ciudad, fechaEntrada, fechaSalida, cantHuespuedes, minPrecio,maxPrecio);
+	}
+	
+	
+	
+	
+	
 	
 }

@@ -31,7 +31,6 @@ class InquilinoTest {
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		inquilino = new Inquilino("damian", "123", "d@gmail.com");
 		sat = mock(SAT.class);
 		this.r1 = mock(Ranking.class);
 		this.r2 = mock(Ranking.class);
