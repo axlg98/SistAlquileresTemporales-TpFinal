@@ -2,6 +2,8 @@ package ar.edu.unq.po2.sistemaAlquiler;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalTime;
@@ -36,7 +38,8 @@ class InmuebleTest {
 	private List<FormaDePago> 	formasDePago;
 	private Alquiler			alquiler;
 	private List<Alquiler>	  	alquileres;
-	private Reserva				reserva;
+	private Reserva				reserva1;
+	private Reserva				reserva2;
 	private List<Reserva>	  	reservas;
 	private Ranking				ranking1;
 	private Ranking				ranking2;
@@ -68,7 +71,8 @@ class InmuebleTest {
 		this.formasDePago		 = new ArrayList<FormaDePago>();
 		this.alquiler			 = mock(Alquiler.class);
 		this.alquileres			 = new ArrayList<Alquiler>();
-		this.reserva			 = mock(Reserva.class);
+		this.reserva1			 = mock(Reserva.class);
+		this.reserva2			 = mock(Reserva.class);
 		this.reservas			 = new ArrayList<Reserva>();
 		this.ranking1			 = mock(Ranking.class);
 		this.ranking2			 = mock(Ranking.class);
@@ -161,9 +165,9 @@ class InmuebleTest {
 	
 	@Test
 	void testAddReserva() {
-		inmueble.addReserva(reserva);
+		inmueble.addReserva(reserva1);
 		assertEquals(1, inmueble.getReservas().size());
-		inmueble.addReserva(reserva);
+		inmueble.addReserva(reserva1);
 		assertEquals(1, inmueble.getReservas().size());
 	}
 	
@@ -171,6 +175,15 @@ class InmuebleTest {
 	void testAddRankeo() {
 		inmueble.addRankeo(ranking1);
 		assertEquals(1, inmueble.getRankeos().size());
+	}
+	
+	@Test
+	void testCancelarReserva() {
+		inmueble.addReserva(reserva1);
+		inmueble.cancelarReserva(reserva1);
+		verify(reserva1, times(1)).cancelarReserva();
+		inmueble.cancelarReserva(reserva2);
+		verify(reserva2, times(0)).cancelarReserva();
 	}
 	
 	@Test

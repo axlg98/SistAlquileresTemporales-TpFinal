@@ -79,15 +79,6 @@ public class Inmueble implements IRankeable	{
 		return rankeos;
 	}
 
-	public void cancelarReserva(Reserva reserva) {
-		if (this.getReservas().contains(reserva)) {
-				reserva.cancelarReserva();	
-		} else {
-			System.out.println("Reserva no valida");
-		}
-	}
-	
-	
 	public void addServicio(Servicio servicio) {
 		if (this.getServicios().contains(servicio)) {
 			System.out.println("El servicio ya existe.");
@@ -132,6 +123,14 @@ public class Inmueble implements IRankeable	{
 			this.getRankeos().add(rankeo);
 	}
 
+	public void cancelarReserva(Reserva reserva) {
+		if (this.getReservas().contains(reserva)) {
+			reserva.cancelarReserva();	
+		} else {
+			System.out.println("Reserva no valida");
+		}
+	}
+	
 	@Override
 	public Double getPromedioGeneral() {
 		return this.getRankeos().stream().mapToInt(ranking -> ranking.getPuntaje()).average().getAsDouble();
@@ -143,3 +142,4 @@ public class Inmueble implements IRankeable	{
 	}	
 	
 }
+
