@@ -50,11 +50,7 @@ public class Usuario implements Propietario, Inquilino{
 		return sat.busquedaDelInquilino(this, ciudad, fechaEntrada, fechaSalida, cantHuespuedes, minPrecio,maxPrecio);
 	}
 
-	@Override
-	public void cancelarReserva(Reserva reserva) {
-		reserva.cancelarReserva();
-		
-	}
+	
 	
 	
 	

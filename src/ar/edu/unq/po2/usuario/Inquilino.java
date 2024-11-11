@@ -18,6 +18,6 @@ public interface Inquilino {
 	public List<Inmueble> buscarAlquiler(	SAT sat, String ciudad, 
 											LocalDate fechaEntrada, LocalDate fechaSalida,
 											int cantHuespuedes, Double minPrecio, Double maxPrecio);
-	public void cancelarReserva(Reserva reserva);
+	
 	
 }
