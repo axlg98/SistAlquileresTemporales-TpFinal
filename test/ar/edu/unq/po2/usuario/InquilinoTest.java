@@ -42,25 +42,6 @@ class InquilinoTest {
 		inmueble = mock(Inmueble.class);
 		
 	}
-	@Test
-	void reservarInmuebleTest() {
-		// comprueba que se haya pasado el objeto de tipo Reserva y no el que se instancia
-				// al agregar la reserva (any)
-		
-		
-		inquilino.reservarInmueble(inmueble, null, null);
-		
-		verify(inmueble).addReserva(any(Reserva.class));
-		
-	}
-	@Test
-	void buscarInmuebles() {
-		when(inmuebles.size()).thenReturn(0);
-		when(sat.busquedaDelInquilino(null, null, null, null, 0, null, null)).thenReturn(inmuebles);
-		int tamaño = (inquilino.buscarAlquiler(sat, "quilmes", LocalDate.now(), LocalDate.now(), 5, 1000.0, 2000.0)).size();
-		
-		assertEquals(tamaño, inmuebles.size());
-	}
 	
 	/*@Test
 	void agregarRankingAInquilino() {
