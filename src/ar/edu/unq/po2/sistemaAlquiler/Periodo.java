@@ -17,6 +17,14 @@ public abstract class Periodo {
 		return ajustePrecio;
 	}
 
+	public LocalDate getFechaInicio() {
+		return fechaInicio;
+	}
+
+	public LocalDate getFechaFin() {
+		return fechaFin;
+	}
+
 	
 	
 }
