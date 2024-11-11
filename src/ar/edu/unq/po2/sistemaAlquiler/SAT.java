@@ -1,5 +1,6 @@
 package ar.edu.unq.po2.sistemaAlquiler;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,6 +93,12 @@ public class SAT {
 		} else {
 			this.getCategoriasRankeo().add(categoriaRankeo);
 		}
+	}
+
+	public List<Inmueble> busquedaDelInquilino(Usuario usuario, String ciudad, LocalDate fechaEntrada,
+			LocalDate fechaSalida, int cantHuespuedes, Double minPrecio, Double maxPrecio) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

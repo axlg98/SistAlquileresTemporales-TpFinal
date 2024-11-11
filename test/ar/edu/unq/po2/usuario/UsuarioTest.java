@@ -1,7 +1,10 @@
 package ar.edu.unq.po2.usuario;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -14,10 +17,10 @@ import ar.edu.unq.po2.sistemaAlquiler.CategoriaRankeo;
 import ar.edu.unq.po2.sistemaAlquiler.Inmueble;
 import ar.edu.unq.po2.sistemaAlquiler.SAT;
 
-class InquilinoTest {
+class UsuarioTest {
 	
-	
-	private Inquilino inquilino;
+	//private Inquilino inquilino;
+	private Usuario inquilino;
 	private SAT sat;
 	private Ranking r1;
 	private Ranking r2;
@@ -29,8 +32,11 @@ class InquilinoTest {
 	private List<Inmueble> inmuebles;
 	private Reserva reserva;
 	
+	
+	
 	@BeforeEach
 	void setUp() throws Exception {
+		inquilino = new Usuario("Damian", "@@", "123");
 		sat = mock(SAT.class);
 		this.r1 = mock(Ranking.class);
 		this.r2 = mock(Ranking.class);
@@ -40,8 +46,8 @@ class InquilinoTest {
 		this.categoriaRankeo2	 = mock(CategoriaRankeo.class);
 		inmuebles = mock(List.class);
 		inmueble = mock(Inmueble.class);
-		
 	}
+
 	@Test
 	void reservarInmuebleTest() {
 		// comprueba que se haya pasado el objeto de tipo Reserva y no el que se instancia
@@ -53,6 +59,7 @@ class InquilinoTest {
 		verify(inmueble).addReserva(any(Reserva.class));
 		
 	}
+	
 	@Test
 	void buscarInmuebles() {
 		when(inmuebles.size()).thenReturn(0);
@@ -61,44 +68,5 @@ class InquilinoTest {
 		
 		assertEquals(tamaño, inmuebles.size());
 	}
-	
-	/*@Test
-	void agregarRankingAInquilino() {
-		inquilino.addRankeo(r1);
-		assertEquals(1, inquilino.getRankeos().size());
-	}
-	
-	@Test
-	void obtenerPromedioGeneralRankingEnInquilino() {
-		when(r1.getPuntaje()).thenReturn(5);
-		when(r2.getPuntaje()).thenReturn(2);
-		
-		inquilino.addRankeo(r1);
-		inquilino.addRankeo(r2);
-		
-		assertEquals(3.5, inquilino.getPromedioGeneral());
-	}
-	
-	@Test
-	void testGetPromedioCategoria() {
-		
-		inquilino.addRankeo(r1);
-		inquilino.addRankeo(r2);
-		inquilino.addRankeo(r3);
-		inquilino.addRankeo(r4);
-		
-		when(r1.getPuntaje()).thenReturn(4);
-		when(r1.getCategoria()).thenReturn(categoriaRankeo1);
-		when(r2.getPuntaje()).thenReturn(3);
-		when(r2.getCategoria()).thenReturn(categoriaRankeo1);
-		when(r3.getPuntaje()).thenReturn(3);
-		when(r3.getCategoria()).thenReturn(categoriaRankeo2);
-		when(r4.getPuntaje()).thenReturn(2);
-		when(r4.getCategoria()).thenReturn(categoriaRankeo2);
-		
-		assertEquals(3.5, inquilino.getPromedioCategoria(categoriaRankeo1));
-		assertEquals(2.5, inquilino.getPromedioCategoria(categoriaRankeo2));
-		
-	}
-	*/
+
 }

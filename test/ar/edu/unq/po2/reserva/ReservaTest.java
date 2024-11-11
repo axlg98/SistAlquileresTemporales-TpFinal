@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import ar.edu.unq.po2.usuario.Usuario;
+
 class ReservaTest {
 
 	Reserva reserva;
@@ -19,16 +21,18 @@ class ReservaTest {
 	EstadoReserva pendiente;
 	EstadoReserva cancelada;
 	EstadoReserva completada;
+	Usuario inquilino;
 
 	@BeforeEach
 	void setUp() {
+		inquilino = mock(Usuario.class);
 		r1 = mock(Reserva.class);
 		aceptada = mock(ReservaAceptada.class);
 		pendiente   = mock(ReservaPendiente.class);
 		cancelada  = mock(ReservaCancelada.class);
 		completada = mock(ReservaCompletada.class);
 		
-		reserva = new Reserva(LocalDate.now(), LocalDate.of(2024,11, 10));
+		reserva = new Reserva(LocalDate.now(), LocalDate.of(2024,11, 10), inquilino);
 	}
 	
 	@Test

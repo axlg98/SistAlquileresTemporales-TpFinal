@@ -33,9 +33,13 @@ public class Usuario implements Propietario, Inquilino{
 		}
 	}
 
+	
+	
+	
+	// Inquilino
 	@Override
 	public void reservarInmueble(Inmueble inmueble, LocalDate fechaInicio, LocalDate fechaFin) {
-		Reserva reserva = new Reserva(fechaInicio, fechaFin);
+		Reserva reserva = new Reserva(fechaInicio, fechaFin, this);
 		inmueble.addReserva(reserva);
 		
 	}
@@ -44,6 +48,12 @@ public class Usuario implements Propietario, Inquilino{
 	public List<Inmueble> buscarAlquiler(SAT sat, String ciudad, LocalDate fechaEntrada, LocalDate fechaSalida,
 			int cantHuespuedes, Double minPrecio, Double maxPrecio) {
 		return sat.busquedaDelInquilino(this, ciudad, fechaEntrada, fechaSalida, cantHuespuedes, minPrecio,maxPrecio);
+	}
+
+	@Override
+	public void cancelarReserva(Reserva reserva) {
+		reserva.cancelarReserva();
+		
 	}
 	
 	
