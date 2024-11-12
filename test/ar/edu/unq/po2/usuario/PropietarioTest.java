@@ -36,6 +36,10 @@ class PropietarioTest {
 	
 	List<Reserva> reservas;
 	List<Inmueble> inmuebles;
+	
+	private Propietario propietario;
+	private Usuario inquilino;
+	private Ranking ranking;
 
 	@BeforeEach
 	void setUp(){
@@ -54,6 +58,11 @@ class PropietarioTest {
 		
 		 reservas = mock(List.class);
 		 inmuebles = mock(List.class);
+		 
+		 this.inquilino = mock(Usuario.class);
+		 this.ranking	= mock(Ranking.class);
+		 
+		 this.propietario = new Usuario("Pablo Pérez", "1130205025", "pperez@gmail.com");
 	}
 
 	//ARREGLAR LA PARTE DE LOS TEST
@@ -62,6 +71,12 @@ class PropietarioTest {
 	void PropietarioAceptandoReservaDelInquilinoTest() {
 		when(reserva.getEstado()).thenReturn(aceptada);
 		assertTrue(reserva.getEstado() instanceof ReservaAceptada);
+	}
+	
+	@Test
+	void testRankearInquilino() {
+		this.propietario.rankearInquilino(inquilino, ranking);
+		verify(inquilino, times(1)).addRankeo(ranking);
 	}
 
 }

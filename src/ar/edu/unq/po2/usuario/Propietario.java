@@ -9,6 +9,7 @@ public interface  Propietario{
 	public void aceptarReservaInquilino(Reserva reserva);
 	//public List<Inmueble> obtenerInmuebles();
 	//public void rankearInquilino(Inquilino inquilino, int puntaje);
+	public void rankearInquilino(Usuario inquilino, Ranking ranking);
 	
 
 }

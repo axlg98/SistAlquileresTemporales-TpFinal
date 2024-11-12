@@ -14,12 +14,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import ar.edu.unq.po2.reserva.Reserva;
-import ar.edu.unq.po2.usuario.Propietario;
 import ar.edu.unq.po2.usuario.Ranking;
+import ar.edu.unq.po2.usuario.Usuario;
 
 class InmuebleTest {
 	private Inmueble			inmueble;
-	private Propietario			propietario;
+	private Usuario				propietario;
 	private TipoInmueble 	  	tipoInmueble;
 	private Double 		 	  	superficie;
 	private String 		 	  	pais;
@@ -51,7 +51,7 @@ class InmuebleTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		this.propietario		 = mock(Propietario.class);
+		this.propietario		 = mock(Usuario.class);
 		this.tipoInmueble 		 = mock(TipoInmueble.class);
 		this.superficie  		 = 70.0;
 		this.pais		 		 = "Argentina";

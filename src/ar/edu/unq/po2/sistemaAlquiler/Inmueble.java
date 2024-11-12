@@ -7,10 +7,11 @@ import java.util.List;
 import ar.edu.unq.po2.reserva.Reserva;
 import ar.edu.unq.po2.usuario.Propietario;
 import ar.edu.unq.po2.usuario.Ranking;
+import ar.edu.unq.po2.usuario.Usuario;
 
 public class Inmueble implements IRankeable	{
 	
-	private Propietario			propietario;
+	private Usuario				propietario;
 	private TipoInmueble 	  	tipoInmueble;
 	private Double 		 	  	superficie;
 	private String 		 	  	pais;
@@ -29,7 +30,7 @@ public class Inmueble implements IRankeable	{
 	private List<Ranking>		rankeos;
 	
 	
-	public Inmueble(Propietario propietario, TipoInmueble tipoInmueble, Double superficie, String pais, String ciudad, String direccion, int capacidad, LocalTime checkIn, 
+	public Inmueble(Usuario propietario, TipoInmueble tipoInmueble, Double superficie, String pais, String ciudad, String direccion, int capacidad, LocalTime checkIn, 
 					LocalTime checkOut, Double precio, PoliticaCancelacion politicaCancelacion, List<Servicio> servicios, List<String> fotos, List<FormaDePago> formasDePago) {
 		this.propietario		 = propietario;
 		this.tipoInmueble 		 = tipoInmueble;
@@ -51,7 +52,7 @@ public class Inmueble implements IRankeable	{
 		
 	}
 	
-	public Propietario getPropietario() {
+	public Usuario getPropietario() {
 		return propietario;
 	}
 
