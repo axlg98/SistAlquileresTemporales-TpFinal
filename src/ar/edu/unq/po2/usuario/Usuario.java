@@ -30,42 +30,32 @@ public class Usuario implements Propietario, Inquilino{
 	//Rankeo
 	
 	public void rankearInquilino(int puntaje, Inmueble inmueble,String comentario) {
-		if ( puntaje < 1 || puntaje > 5) {
-			throw new IllegalArgumentException("El puntaje debe ser entre 1 y 5.");
+		if (puntaje >= 1 && puntaje <= 5) {
+			CategoriaRankeo categoria = new CategoriaRankeo("Inquilino", null);
+			Ranking nuevoRanking = new Ranking(puntaje,categoria,comentario);
+			inmueble.getRankeos().add(nuevoRanking);
+			this.getRankings().add(nuevoRanking);
 		}
-		
-		//Se crea el ranking para rankear al Inquilino
-		
-		CategoriaRankeo categoria = new CategoriaRankeo("Inquilino", null);
-		Ranking nuevoRanking = new Ranking(puntaje,categoria,comentario);
-		inmueble.getRankeos().add(nuevoRanking);
-		this.getRankings().add(nuevoRanking);
+
 	}
 	
 	public void rankearPropietario(int puntaje, Inmueble inmueble,String comentario) {
-		if ( puntaje < 1 || puntaje > 5) {
-			throw new IllegalArgumentException("El puntaje debe ser entre 1 y 5.");
+		if ( puntaje >= 1 && puntaje <= 5) {
+			CategoriaRankeo categoria = new CategoriaRankeo("Propietario", null);
+			Ranking nuevoRanking = new Ranking(puntaje,categoria,comentario);
+			inmueble.getRankeos().add(nuevoRanking);
+			this.getRankings().add(nuevoRanking);
 		}
 		
-		//Se crea el ranking para rankear al Propietario
-		
-		CategoriaRankeo categoria = new CategoriaRankeo("Propietario", null);
-		Ranking nuevoRanking = new Ranking(puntaje,categoria,comentario);
-		inmueble.getRankeos().add(nuevoRanking);
-		this.getRankings().add(nuevoRanking);
 	}
 	
 	public void rankearInmueble(int puntaje, Inmueble inmueble,String comentario) {
-		if ( puntaje < 1 || puntaje > 5) {
-			throw new IllegalArgumentException("El puntaje debe ser entre 1 y 5.");
+		if ( puntaje >= 1 && puntaje <= 5) {
+			CategoriaRankeo categoria = new CategoriaRankeo("Inmueble", null);
+			Ranking nuevoRanking = new Ranking(puntaje,categoria,comentario);
+			inmueble.getRankeos().add(nuevoRanking);
+			this.getRankings().add(nuevoRanking);
 		}
-		
-		//Se crea el ranking para rankear al Inmueble
-		
-		CategoriaRankeo categoria = new CategoriaRankeo("Inmueble", null);
-		Ranking nuevoRanking = new Ranking(puntaje,categoria,comentario);
-		inmueble.getRankeos().add(nuevoRanking);
-		this.getRankings().add(nuevoRanking);
 	}
 	
 	
