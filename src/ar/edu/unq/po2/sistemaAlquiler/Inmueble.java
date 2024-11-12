@@ -1,5 +1,6 @@
 package ar.edu.unq.po2.sistemaAlquiler;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class Inmueble implements IRankeable	{
 	private List<Alquiler>	  	alquileres;
 	private List<Reserva>	  	reservas;
 	private List<Ranking>		rankeos;
-	
+	private List<Periodo> periodos;
 	
 	public Inmueble(Propietario propietario, TipoInmueble tipoInmueble, Double superficie, String pais, String ciudad, String direccion, int capacidad, LocalTime checkIn, 
 					LocalTime checkOut, Double precio, PoliticaCancelacion politicaCancelacion, List<Servicio> servicios, List<String> fotos, List<FormaDePago> formasDePago) {
@@ -48,8 +49,37 @@ public class Inmueble implements IRankeable	{
 		this.alquileres	  = new ArrayList<Alquiler>();
 		this.reservas	  = new ArrayList<Reserva>();
 		this.rankeos	  = new ArrayList<Ranking>();
-		
+		this.periodos 	  = new ArrayList<Periodo>();
 	}
+	public void agregarPeriodo(Periodo periodo) {
+		this.periodos.add(periodo);
+	}
+	public List<Periodo> getPeriodos() {
+		return this.periodos;
+	}
+	
+	public Double calcularPrecioTotal(LocalDate fechaInicio, LocalDate fechaFin) {
+		 Double precioTotal = 0.0;
+
+	        // Itera cada dia del rango de búsqueda
+		 
+	        for (LocalDate fecha = fechaInicio; !fecha.isAfter(fechaFin); fecha = fecha.plusDays(1)) {
+	            Double precioDia = this.precio;
+
+	            // se ajusta el precio si las fechas dadas son de algún periodo en especial asignado en inmueble
+	            
+	            for (Periodo periodo : this.getPeriodos()) {
+	                if (!fecha.isBefore(periodo.getFechaInicio()) && !fecha.isAfter(periodo.getFechaFin())) {
+	                    precioDia *= periodo.getAjustePrecio();
+	                }
+	            }
+
+	           
+	            precioTotal += precioDia;
+	        }
+
+	        return precioTotal;
+	    }
 	
 	public Propietario getPropietario() {
 		return propietario;
