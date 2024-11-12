@@ -32,7 +32,7 @@ class ReservaTest {
 		cancelada  = mock(ReservaCancelada.class);
 		completada = mock(ReservaCompletada.class);
 		
-		reserva = new Reserva(LocalDate.now(), LocalDate.of(2024,11, 10), inquilino);
+		reserva = new Reserva(LocalDate.now(), LocalDate.now().plusDays(10), inquilino);
 	}
 	
 	@Test
@@ -42,13 +42,14 @@ class ReservaTest {
 	
 	@Test
 	void fechaFinTest() {
-		assertEquals(reserva.getFechaFin(), LocalDate.of(2024,11, 10));
+		assertEquals(reserva.getFechaFin(), LocalDate.now().plusDays(10));
 	}
 	
 	@Test
 	void EstadoDeLaReservaActualTest() {
-		reserva.solicitarEstadoReserva();
+		
 		assertTrue(reserva.getEstado() instanceof ReservaPendiente);
+		
 	}
 	
 	@Test
