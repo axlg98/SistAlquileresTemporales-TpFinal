@@ -68,7 +68,7 @@ public class Inmueble implements IRankeable	{
 
 	            // se ajusta el precio si las fechas dadas son de algún periodo en especial asignado en inmueble
 	            
-	            for (Periodo periodo : periodos) {
+	            for (Periodo periodo : this.getPeriodos()) {
 	                if (!fecha.isBefore(periodo.getFechaInicio()) && !fecha.isAfter(periodo.getFechaFin())) {
 	                    precioDia *= periodo.getAjustePrecio();
 	                }
