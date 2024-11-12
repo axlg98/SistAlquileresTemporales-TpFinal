@@ -96,8 +96,25 @@ public class Usuario implements Propietario, Inquilino{
 	public List<Ranking> getRankings() {
 		return rankings;
 	}
-
 	
+	public void addRankeo(Ranking ranking) {
+		this.getRankings().add(ranking);
+	}
+
+	@Override
+	public void rankearInmueble(Inmueble inmueble, Ranking ranking) {
+		inmueble.addRankeo(ranking);
+	}
+
+	@Override
+	public void rankearPropietario(Inmueble inmueble, Ranking ranking) {
+		inmueble.getPropietario().addRankeo(ranking);
+	}
+
+	@Override
+	public void rankearInquilino(Usuario inquilino, Ranking ranking) {
+		inquilino.addRankeo(ranking);
+	}
 	
 	
 }

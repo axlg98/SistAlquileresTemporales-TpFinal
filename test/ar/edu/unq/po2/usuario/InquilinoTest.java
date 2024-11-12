@@ -17,7 +17,8 @@ import ar.edu.unq.po2.sistemaAlquiler.SAT;
 class InquilinoTest {
 	
 	
-	private Inquilino inquilino;
+	private Inquilino 	inquilino;
+	private Usuario propietario;
 	private SAT sat;
 	private Ranking r1;
 	private Ranking r2;
@@ -31,6 +32,7 @@ class InquilinoTest {
 	
 	@BeforeEach
 	void setUp() throws Exception {
+		this.propietario = mock(Usuario.class);
 		sat = mock(SAT.class);
 		this.r1 = mock(Ranking.class);
 		this.r2 = mock(Ranking.class);
@@ -41,6 +43,7 @@ class InquilinoTest {
 		inmuebles = mock(List.class);
 		inmueble = mock(Inmueble.class);
 		
+		this.inquilino = new Usuario("Pablo Pérez", "1130205025", "pperez@gmail.com");
 	}
 	
 	/*@Test
@@ -82,4 +85,18 @@ class InquilinoTest {
 		
 	}
 	*/
+	
+	@Test
+	void testRankearInmueble() {
+		this.inquilino.rankearInmueble(inmueble, r1);
+		verify(inmueble, times(1)).addRankeo(r1);
+	}
+	
+	@Test
+	void testRankearPropietario() {
+		when(inmueble.getPropietario()).thenReturn(propietario);
+		this.inquilino.rankearPropietario(inmueble, r1);
+		verify(propietario, times(1)).addRankeo(r1);
+	}
+	
 }
