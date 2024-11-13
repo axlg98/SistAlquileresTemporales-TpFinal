@@ -12,11 +12,7 @@ public class ReservaAceptada extends EstadoReserva{
 		System.out.println("La reserva ya está Confirmada.");
 	}
 	
-	@Override
-	public  void completarReserva(Reserva reserva) {
-		System.out.println("Reserva completada");
-		reserva.setEstado(new ReservaCompletada());
-	}
+	
 	
 	@Override
 	public void cancelarReserva(Reserva reserva) {
