@@ -10,7 +10,7 @@ import ar.edu.unq.po2.usuario.Propietario;
 import ar.edu.unq.po2.usuario.Ranking;
 import ar.edu.unq.po2.usuario.Usuario;
 
-public class Inmueble implements IRankeable	{
+public class Inmueble extends Notificador implements IRankeable {
 	
 	private Usuario				propietario;
 	private TipoInmueble 	  	tipoInmueble;
@@ -55,6 +55,11 @@ public class Inmueble implements IRankeable	{
 	public void agregarPeriodo(Periodo periodo) {
 		this.periodos.add(periodo);
 	}
+	
+	public Double getPrecio() {
+		return precio;
+	}
+	
 	public List<Periodo> getPeriodos() {
 		return this.periodos;
 	}
@@ -110,6 +115,13 @@ public class Inmueble implements IRankeable	{
 		return rankeos;
 	}
 
+	public void setPrecio(Double precio) {
+		if (precio < this.precio) {
+			this.informarNotificados();
+		}
+		this.precio = precio;
+	}
+	
 	public void addServicio(Servicio servicio) {
 		if (this.getServicios().contains(servicio)) {
 			System.out.println("El servicio ya existe.");

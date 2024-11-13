@@ -54,6 +54,8 @@ class InmuebleTest {
 	private TemporadaBaja 		tempoBaja;
 	private Carnaval 			carnaval;
 	private FinSemanaLargo 		finDeLargo;
+	private Notificado			notificado1;
+	private Notificado			notificado2;
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -91,6 +93,8 @@ class InmuebleTest {
 		this.tempoBaja			 = mock(TemporadaBaja.class);
 		this.carnaval			 = mock(Carnaval.class);
 		this.finDeLargo 		 = mock(FinSemanaLargo.class);
+		this.notificado1		 = mock(Notificado.class);
+		this.notificado2		 = mock(Notificado.class);
 		
 		
 		this.inmueble			 = new Inmueble(propietario, tipoInmueble, superficie, pais, ciudad, direccion, capacidad, 
@@ -279,6 +283,14 @@ class InmuebleTest {
 		assertEquals(rankeos, inmueble.getRankeos());
 	}
 	
+	@Test
+	void testSetPrecio() {
+		inmueble.setPrecio(15000.0);
+		assertEquals(15000.0, inmueble.getPrecio());
+		inmueble.setPrecio(18000.0);
+		assertEquals(18000.0, inmueble.getPrecio());
+	}
+	
 	
 	@Test
 	void testAddServicio() {
@@ -364,6 +376,19 @@ class InmuebleTest {
 		when(ranking4.getCategoria()).thenReturn(categoriaRankeo2);
 		assertEquals(3.5, inmueble.getPromedioCategoria(categoriaRankeo1));
 		assertEquals(2.5, inmueble.getPromedioCategoria(categoriaRankeo2));
+	}
+	
+	@Test
+	void testNotificacionBajaDePrecio() {
+		inmueble.suscribirNotificado(notificado1);
+		inmueble.suscribirNotificado(notificado2);
+		inmueble.setPrecio(15000.0);
+		verify(notificado1, times(1)).informar();
+		verify(notificado2, times(1)).informar();
+		inmueble.desuscribirNotificado(notificado2);
+		inmueble.setPrecio(10000.0);
+		verify(notificado1, times(2)).informar();
+		verify(notificado2, times(1)).informar();
 	}
 
 }
