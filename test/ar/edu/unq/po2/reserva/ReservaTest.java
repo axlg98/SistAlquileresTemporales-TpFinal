@@ -30,7 +30,6 @@ class ReservaTest {
 		aceptada = mock(ReservaAceptada.class);
 		pendiente   = mock(ReservaPendiente.class);
 		cancelada  = mock(ReservaCancelada.class);
-		completada = mock(ReservaCompletada.class);
 		
 		reserva = new Reserva(LocalDate.now(), LocalDate.now().plusDays(10), inquilino);
 	}
@@ -56,7 +55,6 @@ class ReservaTest {
 	void ReservaConfirmadaTest() {
 		reserva.aceptarReserva();
 		reserva.solicitarEstadoReserva();
-		//reserva.aceptarReserva();
 		assertTrue(reserva.getEstado() instanceof ReservaAceptada);
 		
 	}
@@ -75,42 +73,9 @@ class ReservaTest {
 		reserva.cancelarReserva();
 		assertTrue(reserva.getEstado() instanceof ReservaCancelada);
 	}
+
 	
-	@Test
-	void ReservaCompletadaTest() {
-		reserva.aceptarReserva();
-		reserva.solicitarEstadoReserva();
-		reserva.reservaCompletada();
-		assertTrue(reserva.getEstado() instanceof ReservaCompletada);
-	}
-	
-	@Test
-	void AceptarReservaCompletadaTest() {
-		reserva.aceptarReserva();
-		reserva.reservaCompletada();
-		reserva.aceptarReserva();
-		reserva.solicitarEstadoReserva();
-		assertTrue(reserva.getEstado() instanceof ReservaCompletada);
-	}
-	
-	@Test
-	void CancelarReservaCompletadaTest() {
-		reserva.aceptarReserva();
-		reserva.reservaCompletada();
-		reserva.cancelarReserva();
-		reserva.solicitarEstadoReserva();
-		assertTrue(reserva.getEstado() instanceof ReservaCompletada);
-	}
-	
-	@Test
-	void CompletarLaReservaCompletadaTest() {
-		reserva.aceptarReserva();
-		reserva.reservaCompletada();
-		reserva.reservaCompletada();
-		reserva.solicitarEstadoReserva();
-		assertTrue(reserva.getEstado() instanceof ReservaCompletada);
-	}
-	
+
 	@Test
 	void CancelarReservaCanceladaTest() {
 		reserva.cancelarReserva();
@@ -126,13 +91,6 @@ class ReservaTest {
 	}
 	
 	@Test
-	void CompletarReservaCanceladaTest() {
-		reserva.cancelarReserva();
-		reserva.reservaCompletada();
-		assertTrue(reserva.getEstado() instanceof ReservaCancelada);
-	}
-	
-	@Test
 	void AceptarLaReservaConfirmadaTest() {
 		reserva.aceptarReserva();
 		reserva.solicitarEstadoReserva();
@@ -141,9 +99,19 @@ class ReservaTest {
 	}
 	
 	@Test
-	void CompletarReservaPendienteTest() {
-		reserva.reservaCompletada();
+	void ReservaCondicional() {
+		when(r1.getEstado()).thenReturn(new ReservaCondicional());
+		assertTrue(r1.getEstado() instanceof ReservaCondicional);
+	}
+	
+	@Test
+	void aceptandoUnaReservaCondicionalTest() {
+		reserva.setEstado(new ReservaCondicional());
+		
+		reserva.aceptarReserva();
+		
 		assertTrue(reserva.getEstado() instanceof ReservaPendiente);
+		
 	}
 
 }

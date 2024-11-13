@@ -17,7 +17,6 @@ import ar.edu.unq.po2.reserva.EstadoReserva;
 import ar.edu.unq.po2.reserva.Reserva;
 import ar.edu.unq.po2.reserva.ReservaAceptada;
 import ar.edu.unq.po2.reserva.ReservaCancelada;
-import ar.edu.unq.po2.reserva.ReservaCompletada;
 import ar.edu.unq.po2.reserva.ReservaPendiente;
 import ar.edu.unq.po2.sistemaAlquiler.Inmueble;
 
@@ -54,7 +53,6 @@ class PropietarioTest {
 		aceptada   = mock(ReservaAceptada.class);
 		pendiente  = mock(ReservaPendiente.class);
 		cancelada  = mock(ReservaCancelada.class);
-		completada = mock(ReservaCompletada.class);
 		
 		 reservas = mock(List.class);
 		 inmuebles = mock(List.class);
