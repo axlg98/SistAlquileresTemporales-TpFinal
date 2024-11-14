@@ -20,9 +20,9 @@ public class Reserva {
 	
 	//Confirma si la reserva es aceptada.
 	
-	public boolean isConfirmada() {
+	/*public boolean isConfirmada() {
 		return this.getEstado().isConfirmada();
-	}
+	}*/
 	
 	//Parte del State
 
@@ -48,7 +48,7 @@ public class Reserva {
 		return fechaFin;
 	}
 	
-	public EstadoReserva getEstado() { //Solamente para probar test temporal.
+	public EstadoReserva getEstado() { 
 		return this.estado;
 	}
 	

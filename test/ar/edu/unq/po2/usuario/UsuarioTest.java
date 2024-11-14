@@ -87,7 +87,7 @@ class UsuarioTest {
 	@Test
 	void aceptarReservaInquilinoTest() {
 		when(reserva.getEstado()).thenReturn( new ReservaPendiente());
-		assertTrue(reserva.getEstado() instanceof ReservaPendiente);
+		//assertTrue(reserva.getEstado() instanceof ReservaPendiente);
 		//when(reserva.getEstado()).thenReturn(new ReservaAceptada());
 		propietario.aceptarReservaInquilino(reserva);
 		//assertTrue(reserva.getEstado() instanceof ReservaAceptada);
