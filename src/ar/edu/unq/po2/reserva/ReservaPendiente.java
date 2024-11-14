@@ -18,4 +18,6 @@ public class ReservaPendiente extends EstadoReserva{
 	public void solicitarEstadoReserva() {
 		System.out.println("Estado reserva: Pendiente");
 	}
+
+	
 }

@@ -17,4 +17,6 @@ public class ReservaCancelada extends EstadoReserva{
 		System.out.println("Estado reserva: Cancelada");
 	}
 
+	
+
 }

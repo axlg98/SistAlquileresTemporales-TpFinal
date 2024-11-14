@@ -21,7 +21,7 @@ import ar.edu.unq.po2.sistemaAlquiler.SAT;
 
 class UsuarioTest {
 	
-	//private Inquilino inquilino;
+	
 	 Usuario inquilino;
 	 Usuario propietario;
 	 SAT sat;
@@ -85,10 +85,13 @@ class UsuarioTest {
 	}
 	
 	@Test
-	void aceptarReservaInquilinoTest() { // Arreglar
-		when(reserva.getEstado()).thenReturn(new ReservaPendiente());
-		propietario.aceptarReservaInquilino(reserva);
+	void aceptarReservaInquilinoTest() {
+		when(reserva.getEstado()).thenReturn( new ReservaPendiente());
 		assertTrue(reserva.getEstado() instanceof ReservaPendiente);
+		//when(reserva.getEstado()).thenReturn(new ReservaAceptada());
+		propietario.aceptarReservaInquilino(reserva);
+		//assertTrue(reserva.getEstado() instanceof ReservaAceptada);
+		verify(reserva).aceptarReserva();
 	}
 	
 	@Test
