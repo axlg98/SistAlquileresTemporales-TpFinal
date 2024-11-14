@@ -74,7 +74,7 @@ class PropietarioTest {
 	@Test
 	void testRankearInquilino() {
 		this.propietario.rankearInquilino(inquilino, ranking);
-		verify(inquilino, times(1)).addRankeo(ranking);
+		verify(inquilino, times(1)).addRanking(ranking);
 	}
 
 }

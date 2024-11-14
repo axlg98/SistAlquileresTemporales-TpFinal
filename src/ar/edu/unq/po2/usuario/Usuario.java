@@ -26,6 +26,8 @@ public class Usuario implements Propietario, Inquilino{
 	public void addRanking(Ranking ranking) {
 		rankings.add(ranking);
 	}
+
+	
 	
 	//Rankeo
 	
@@ -97,9 +99,6 @@ public class Usuario implements Propietario, Inquilino{
 		return rankings;
 	}
 	
-	public void addRankeo(Ranking ranking) {
-		this.getRankings().add(ranking);
-	}
 
 	@Override
 	public void rankearInmueble(Inmueble inmueble, Ranking ranking) {
@@ -108,12 +107,12 @@ public class Usuario implements Propietario, Inquilino{
 
 	@Override
 	public void rankearPropietario(Inmueble inmueble, Ranking ranking) {
-		inmueble.getPropietario().addRankeo(ranking);
+		inmueble.getPropietario().addRanking(ranking);
 	}
 
 	@Override
 	public void rankearInquilino(Usuario inquilino, Ranking ranking) {
-		inquilino.addRankeo(ranking);
+		inquilino.addRanking(ranking);
 	}
 	
 	

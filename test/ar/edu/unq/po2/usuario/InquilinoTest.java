@@ -96,7 +96,7 @@ class InquilinoTest {
 	void testRankearPropietario() {
 		when(inmueble.getPropietario()).thenReturn(propietario);
 		this.inquilino.rankearPropietario(inmueble, r1);
-		verify(propietario, times(1)).addRankeo(r1);
+		verify(propietario, times(1)).addRanking(r1);
 	}
 	
 }
