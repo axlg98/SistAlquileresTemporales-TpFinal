@@ -1,6 +1,6 @@
 package ar.edu.unq.po2.reserva;
 
-public class ReservaCondicional extends EstadoReserva{
+public class ReservaCondicional implements EstadoReserva{
 
 	@Override
 	public void aceptarReserva(Reserva reserva) {
@@ -17,11 +17,6 @@ public class ReservaCondicional extends EstadoReserva{
 	public void solicitarEstadoReserva() {
 		System.out.println("Estado Reserva: Condicional.");
 		
-	}
-	
-	@Override
-	public boolean isConfirmada() {
-		return true;
 	}
 
 }
