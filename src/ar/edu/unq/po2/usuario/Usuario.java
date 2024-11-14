@@ -67,12 +67,8 @@ public class Usuario implements Propietario, Inquilino{
 	
 	@Override
 	public void aceptarReservaInquilino(Reserva reserva) { 
-		/*if(reserva.isConfirmada()) {
-			System.out.println("La Reserva ya fue aceptada previamente.");
-		}else {*/
 			reserva.aceptarReserva();
-			System.out.println("La Reserva fue aceptada correctamente.");
-		//}
+
 	}
 
 
