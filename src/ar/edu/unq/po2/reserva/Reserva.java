@@ -3,6 +3,7 @@ package ar.edu.unq.po2.reserva;
 import java.time.LocalDate;
 
 import ar.edu.unq.po2.usuario.Inquilino;
+import ar.edu.unq.po2.usuario.Usuario;
 
 public class Reserva {
 	private LocalDate fechaInicio;
@@ -53,6 +54,9 @@ public class Reserva {
 	
 	public void setEstado(EstadoReserva estado) {
 		this.estado = estado;
+	}
+	public Inquilino getInquilino() {
+		return this.inquilino;
 	}
 
 }

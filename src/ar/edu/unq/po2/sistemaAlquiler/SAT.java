@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import ar.edu.unq.po2.reserva.Reserva;
+import ar.edu.unq.po2.usuario.Inquilino;
 import ar.edu.unq.po2.usuario.Usuario;
 
 public class SAT {
@@ -111,5 +113,13 @@ public class SAT {
 	
 	public List<Inmueble> getInmueblesDisponibles(String ciudad, LocalDate fechaEntrada, LocalDate fechaSalida, int cantHuespuedes, Double minPrecio, Double maxPrecio) {
 		return this.getInmuebles().stream().filter(inmueble -> inmueble.isDisponible(fechaEntrada, fechaSalida)).toList();
+	}
+	
+	
+	public List<Reserva> todasLasReservas(Inquilino inquilino) {
+		return this.getInmuebles().stream()
+		        .flatMap(i -> i.getReservas().stream()) // agarra cada lista de reservas y las une en una sola lista de stream
+		        .filter(r -> r.getInquilino().equals(inquilino))
+		        .collect(Collectors.toList());
 	}
 }

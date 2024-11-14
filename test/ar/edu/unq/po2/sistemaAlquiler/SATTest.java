@@ -8,12 +8,14 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import ar.edu.unq.po2.reserva.Reserva;
+import ar.edu.unq.po2.usuario.Inquilino;
 import ar.edu.unq.po2.usuario.Usuario;
 
 class SATTest {
@@ -37,7 +39,7 @@ class SATTest {
 	private List<Servicio> 		  servicios;
 	private List<FormaDePago>	  formasDePago;
 	private List<CategoriaRankeo> categoriasRankeo;
-	
+	private Inquilino inquilino;
 	private SAT					  SAT;
 
 	@BeforeEach
@@ -61,11 +63,11 @@ class SATTest {
 		this.servicios 			 = new ArrayList<Servicio>();
 		this.formasDePago 		 = new ArrayList<FormaDePago>();
 		this.categoriasRankeo 	 = new ArrayList<CategoriaRankeo>();
-		
+		this.inquilino = mock(Inquilino.class);
 		
 		this.SAT				 = new SAT();
 	}
-
+	
 	@Test
 	void testConstructor() {
 		assertNotNull(this.SAT);
@@ -148,7 +150,19 @@ class SATTest {
 		this.SAT.altaCategoriaRankeo(categoriaRankeo);
 		assertEquals(1, SAT.getCategoriasRankeo().size());
 	}
-	
+	@Test
+	void todasLasReservasDeUnInquilino() {
+		
+		when(reserva1.getInquilino()).thenReturn(inquilino);
+		when(reserva2.getInquilino()).thenReturn(inquilino);
+		inmueble1.addReserva(reserva1);
+		inmueble2.addReserva(reserva2);
+		when(inmueble1.getReservas()).thenReturn(Arrays.asList(reserva1));
+		when(inmueble2.getReservas()).thenReturn(Arrays.asList(reserva2));
+		SAT.altaInmueble(inmueble1);
+		SAT.altaInmueble(inmueble2);
+		assertEquals(Arrays.asList(reserva1,reserva2), SAT.todasLasReservas(inquilino));
+	}
 	@Test
 	void testGetInmueblesDisponibles() {
 		when(inmueble1.isDisponible(LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20))).thenReturn(true);
@@ -172,4 +186,6 @@ class SATTest {
 		this.SAT.altaInmueble(inmueble3);
 		assertEquals(Arrays.asList(inmueble1,inmueble3), this.SAT.busquedaDelInquilino("Quilmes", LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20), 0, 0.0, 0.0));
 	}
+	
+	
 }

@@ -63,10 +63,10 @@ public class Usuario implements Propietario, Inquilino{
 	
 	//Métodos para el Propietario
 	
-	//FALTA AGREGAR MÉTODOS.
+	
 	
 	@Override
-	public void aceptarReservaInquilino(Reserva reserva) { //Ver esto como arreglarlo
+	public void aceptarReservaInquilino(Reserva reserva) { 
 		if(reserva.isConfirmada()) {
 			System.out.println("La Reserva ya fue aceptada previamente.");
 		}else {
