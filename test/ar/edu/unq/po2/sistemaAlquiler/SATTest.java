@@ -159,5 +159,17 @@ class SATTest {
 		this.SAT.altaInmueble(inmueble3);
 		assertEquals(Arrays.asList(inmueble1,inmueble3), this.SAT.getInmueblesDisponibles("", LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20), 0, 0.0, 0.0));
 	}
-	
+	@Test
+	void testBusquedaDeInmueblesParaReservar() {
+		when(inmueble1.isDisponible(LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20))).thenReturn(true);
+		when(inmueble1.getCiudad()).thenReturn("Quilmes");
+		when(inmueble2.isDisponible(LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20))).thenReturn(false);
+		when(inmueble2.getCiudad()).thenReturn("Bernal");
+		when(inmueble3.isDisponible(LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20))).thenReturn(true);
+		when(inmueble3.getCiudad()).thenReturn("Quilmes");
+		this.SAT.altaInmueble(inmueble1);
+		this.SAT.altaInmueble(inmueble2);
+		this.SAT.altaInmueble(inmueble3);
+		assertEquals(Arrays.asList(inmueble1,inmueble3), this.SAT.busquedaDelInquilino("Quilmes", LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20), 0, 0.0, 0.0));
+	}
 }

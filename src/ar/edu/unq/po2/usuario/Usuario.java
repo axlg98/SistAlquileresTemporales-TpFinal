@@ -86,7 +86,7 @@ public class Usuario implements Propietario, Inquilino{
 	@Override
 	public List<Inmueble> buscarAlquiler(SAT sat, String ciudad, LocalDate fechaEntrada, LocalDate fechaSalida,
 			int cantHuespuedes, Double minPrecio, Double maxPrecio) {
-		return sat.busquedaDelInquilino(this, ciudad, fechaEntrada, fechaSalida, cantHuespuedes, minPrecio,maxPrecio);
+		return sat.busquedaDelInquilino(ciudad, fechaEntrada, fechaSalida, cantHuespuedes, minPrecio,maxPrecio);
 	}
 
 	

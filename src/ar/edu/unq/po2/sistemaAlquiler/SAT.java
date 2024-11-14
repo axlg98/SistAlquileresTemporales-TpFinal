@@ -96,7 +96,7 @@ public class SAT {
 		}
 	}
 
-	public List<Inmueble> busquedaDelInquilino(Usuario usuario, String ciudad, LocalDate fechaEntrada,
+	public List<Inmueble> busquedaDelInquilino( String ciudad, LocalDate fechaEntrada,
 			LocalDate fechaSalida, int cantHuespuedes, Double minPrecio, Double maxPrecio) {
 		// TODO Auto-generated method stub
 		return this.getInmuebles().stream()

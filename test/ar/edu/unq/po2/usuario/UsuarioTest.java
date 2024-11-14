@@ -120,7 +120,7 @@ class UsuarioTest {
 	@Test
 	void buscarInmuebles() {
 		when(inmuebles.size()).thenReturn(0);
-		when(sat.busquedaDelInquilino(null, null, null, null, 0, null, null)).thenReturn(inmuebles);
+		when(sat.busquedaDelInquilino( null, null, null, 0, null, null)).thenReturn(inmuebles);
 		int tamaño = (inquilino.buscarAlquiler(sat, "quilmes", LocalDate.now(), LocalDate.now(), 5, 1000.0, 2000.0)).size();
 		
 		assertEquals(tamaño, inmuebles.size());
