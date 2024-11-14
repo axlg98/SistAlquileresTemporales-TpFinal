@@ -182,7 +182,16 @@ public class Inmueble extends Notificador implements IRankeable {
 	@Override
 	public Double getPromedioCategoria(CategoriaRankeo categoriaRankeo) {
 		return this.getRankeos().stream().filter(ranking -> ranking.getCategoria().equals(categoriaRankeo)).mapToInt(ranking -> ranking.getPuntaje()).average().getAsDouble();
-	}	
+	}
+	
+	public Boolean isDisponible(LocalDate fechaEntrada, LocalDate fechaSalida) {
+		return this.getReservas().stream().allMatch(reserva -> this.periodoANotInPeriodoB(fechaEntrada, fechaSalida, reserva.getFechaInicio(), reserva.getFechaFin()));
+	}
+	
+	private Boolean periodoANotInPeriodoB(LocalDate inicioA, LocalDate finA, LocalDate inicioB, LocalDate finB) {
+		return (finA.isBefore(inicioB) || inicioA.isAfter(finB));
+	}
+
 	
 }
 

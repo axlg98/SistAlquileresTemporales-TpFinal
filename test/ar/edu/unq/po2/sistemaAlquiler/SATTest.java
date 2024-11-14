@@ -2,25 +2,35 @@ package ar.edu.unq.po2.sistemaAlquiler;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import ar.edu.unq.po2.reserva.Reserva;
 import ar.edu.unq.po2.usuario.Usuario;
 
 class SATTest {
 	
+	private static final Boolean True = null;
 	private Usuario 			  usuario;
-	private Inmueble 			  inmueble;
+	private Inmueble 			  inmueble1;
+	private Inmueble 			  inmueble2;
+	private Inmueble 			  inmueble3;
 	private TipoInmueble 		  tipoInmueble;
 	private Servicio 			  servicio;
 	private FormaDePago	    	  formaDePago;
 	private CategoriaRankeo 	  categoriaRankeo;
 	private IPoliticaCancelacion  politicaCancelacion;
+	private Reserva				  reserva1;
+	private Reserva				  reserva2;
+	private Reserva				  reserva3;
 	private List<Usuario> 		  usuarios;
 	private List<Inmueble> 		  inmuebles;
 	private List<TipoInmueble> 	  tiposInmueble;
@@ -34,18 +44,24 @@ class SATTest {
 	void setUp() throws Exception {
 		
 		this.usuario 			 = mock(Usuario.class);
-		this.inmueble 			 = mock(Inmueble.class);
+		this.inmueble1 			 = mock(Inmueble.class);
+		this.inmueble2 			 = mock(Inmueble.class);
+		this.inmueble3 			 = mock(Inmueble.class);
 		this.tipoInmueble 		 = mock(TipoInmueble.class);
 		this.servicio 			 = mock(Servicio.class);
 		this.formaDePago 		 = mock(FormaDePago.class);
 		this.categoriaRankeo 	 = mock(CategoriaRankeo.class);
 		this.politicaCancelacion = mock(IPoliticaCancelacion.class);
+		this.reserva1			 = mock(Reserva.class);
+		this.reserva2			 = mock(Reserva.class);
+		this.reserva3			 = mock(Reserva.class);
 		this.usuarios 			 = new ArrayList<Usuario>();
 		this.inmuebles 			 = new ArrayList<Inmueble>();
 		this.tiposInmueble		 = new ArrayList<TipoInmueble>();
 		this.servicios 			 = new ArrayList<Servicio>();
 		this.formasDePago 		 = new ArrayList<FormaDePago>();
 		this.categoriasRankeo 	 = new ArrayList<CategoriaRankeo>();
+		
 		
 		this.SAT				 = new SAT();
 	}
@@ -95,9 +111,9 @@ class SATTest {
 	
 	@Test
 	void testAltaInmueble() {
-		this.SAT.altaInmueble(inmueble);
-		assertTrue(SAT.getInmuebles().contains(inmueble));
-		this.SAT.altaInmueble(inmueble);
+		this.SAT.altaInmueble(inmueble1);
+		assertTrue(SAT.getInmuebles().contains(inmueble1));
+		this.SAT.altaInmueble(inmueble1);
 		assertEquals(1, SAT.getInmuebles().size());
 	}
 
@@ -131,6 +147,17 @@ class SATTest {
 		assertTrue(SAT.getCategoriasRankeo().contains(categoriaRankeo));
 		this.SAT.altaCategoriaRankeo(categoriaRankeo);
 		assertEquals(1, SAT.getCategoriasRankeo().size());
+	}
+	
+	@Test
+	void testGetInmueblesDisponibles() {
+		when(inmueble1.isDisponible(LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20))).thenReturn(true);
+		when(inmueble2.isDisponible(LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20))).thenReturn(false);
+		when(inmueble3.isDisponible(LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20))).thenReturn(true);
+		this.SAT.altaInmueble(inmueble1);
+		this.SAT.altaInmueble(inmueble2);
+		this.SAT.altaInmueble(inmueble3);
+		assertEquals(Arrays.asList(inmueble1,inmueble3), this.SAT.getInmueblesDisponibles("", LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20), 0, 0.0, 0.0));
 	}
 	
 }
