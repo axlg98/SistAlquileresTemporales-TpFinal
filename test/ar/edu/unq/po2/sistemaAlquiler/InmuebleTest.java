@@ -42,6 +42,7 @@ class InmuebleTest {
 	private List<Alquiler>	  	alquileres;
 	private Reserva				reserva1;
 	private Reserva				reserva2;
+	private Reserva				reserva3;
 	private List<Reserva>	  	reservas;
 	private Ranking				ranking1;
 	private Ranking				ranking2;
@@ -81,6 +82,7 @@ class InmuebleTest {
 		this.alquileres			 = new ArrayList<Alquiler>();
 		this.reserva1			 = mock(Reserva.class);
 		this.reserva2			 = mock(Reserva.class);
+		this.reserva3			 = mock(Reserva.class);
 		this.reservas			 = new ArrayList<Reserva>();
 		this.ranking1			 = mock(Ranking.class);
 		this.ranking2			 = mock(Ranking.class);
@@ -389,6 +391,21 @@ class InmuebleTest {
 		inmueble.setPrecio(10000.0);
 		verify(notificado1, times(2)).informar();
 		verify(notificado2, times(1)).informar();
+	}
+	
+	@Test
+	void testIsDisponible() {
+		when(reserva1.getFechaInicio()).thenReturn(LocalDate.of(2024, 12, 1));
+		when(reserva1.getFechaFin()).thenReturn(LocalDate.of(2024, 12, 5));
+		when(reserva2.getFechaInicio()).thenReturn(LocalDate.of(2024, 12, 6));
+		when(reserva2.getFechaFin()).thenReturn(LocalDate.of(2024, 12, 10));
+		when(reserva3.getFechaInicio()).thenReturn(LocalDate.of(2024, 12, 11));
+		when(reserva3.getFechaFin()).thenReturn(LocalDate.of(2024, 12, 15));
+		inmueble.addReserva(reserva1);
+		inmueble.addReserva(reserva2);
+		inmueble.addReserva(reserva3);
+		assertTrue(inmueble.isDisponible(LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 20)));
+		assertFalse(inmueble.isDisponible(LocalDate.of(2024, 12, 4), LocalDate.of(2024, 12, 10)));
 	}
 
 }

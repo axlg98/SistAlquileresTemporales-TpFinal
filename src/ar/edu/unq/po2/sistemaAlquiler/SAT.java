@@ -108,4 +108,7 @@ public class SAT {
 		return i.getCiudad().equals(ciudad);
 	}
 	
+	public List<Inmueble> getInmueblesDisponibles(String ciudad, LocalDate fechaEntrada, LocalDate fechaSalida, int cantHuespuedes, Double minPrecio, Double maxPrecio) {
+		return this.getInmuebles().stream().filter(inmueble -> inmueble.isDisponible(fechaEntrada, fechaSalida)).toList();
+	}
 }
