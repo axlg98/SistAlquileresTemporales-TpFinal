@@ -3,6 +3,7 @@ package ar.edu.unq.po2.sistemaAlquiler;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import ar.edu.unq.po2.usuario.Usuario;
 
@@ -98,7 +99,13 @@ public class SAT {
 	public List<Inmueble> busquedaDelInquilino(Usuario usuario, String ciudad, LocalDate fechaEntrada,
 			LocalDate fechaSalida, int cantHuespuedes, Double minPrecio, Double maxPrecio) {
 		// TODO Auto-generated method stub
-		return null;
+		return this.getInmuebles().stream()
+				.filter(i -> esMismaCiudad(ciudad, i))
+				.collect(Collectors.toList());
+	}
+
+	private boolean esMismaCiudad(String ciudad, Inmueble i) {
+		return i.getCiudad().equals(ciudad);
 	}
 	
 }

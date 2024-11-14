@@ -90,6 +90,9 @@ public class Inmueble extends Notificador implements IRankeable {
 	public Usuario getPropietario() {
 		return propietario;
 	}
+	public String getCiudad() {
+		return this.ciudad;
+	}
 
 	public List<Servicio> getServicios() {
 		return servicios;
