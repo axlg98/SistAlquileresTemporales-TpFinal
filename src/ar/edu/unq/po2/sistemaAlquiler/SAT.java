@@ -101,6 +101,7 @@ public class SAT {
 		// TODO Auto-generated method stub
 		return this.getInmuebles().stream()
 				.filter(i -> esMismaCiudad(ciudad, i))
+				.filter(i -> i.isDisponible(fechaEntrada, fechaSalida))
 				.collect(Collectors.toList());
 	}
 
