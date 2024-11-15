@@ -34,9 +34,6 @@ public class Reserva {
 		this.getEstado().cancelarReserva(this);
 	}
 	
-	public void solicitarEstadoReserva() {
-		this.getEstado().solicitarEstadoReserva();
-	}
 	
 	//GETTER Y SETTER
 
