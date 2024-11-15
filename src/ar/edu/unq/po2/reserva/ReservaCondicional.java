@@ -13,10 +13,5 @@ public class ReservaCondicional implements EstadoReserva{
 		
 	}
 
-	@Override
-	public void solicitarEstadoReserva() {
-		System.out.println("Estado Reserva: Condicional.");
-		
-	}
 
 }

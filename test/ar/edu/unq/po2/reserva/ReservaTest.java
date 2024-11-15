@@ -54,7 +54,6 @@ class ReservaTest {
 	@Test
 	void ReservaConfirmadaTest() {
 		reserva.aceptarReserva();
-		reserva.solicitarEstadoReserva();
 		assertTrue(reserva.getEstado() instanceof ReservaAceptada);
 		
 	}
@@ -62,14 +61,12 @@ class ReservaTest {
 	@Test
 	void CancelandoLaReservaTest() {
 		reserva.cancelarReserva();
-		reserva.solicitarEstadoReserva();
 		assertTrue(reserva.getEstado() instanceof ReservaCancelada);
 	}
 	
 	@Test
 	void CancelandoLaReservaConfirmadaTest() {
 		reserva.aceptarReserva();
-		reserva.solicitarEstadoReserva();
 		reserva.cancelarReserva();
 		assertTrue(reserva.getEstado() instanceof ReservaCancelada);
 	}
@@ -93,7 +90,6 @@ class ReservaTest {
 	@Test
 	void AceptarLaReservaConfirmadaTest() {
 		reserva.aceptarReserva();
-		reserva.solicitarEstadoReserva();
 		reserva.aceptarReserva();
 		assertTrue(reserva.getEstado() instanceof ReservaAceptada);
 	}
