@@ -94,6 +94,10 @@ public class Inmueble extends Notificador implements IRankeable {
 		return this.ciudad;
 	}
 
+	public int getCapacidad() {
+		return capacidad;
+	}
+	
 	public List<Servicio> getServicios() {
 		return servicios;
 	}
