@@ -20,11 +20,14 @@ import ar.edu.unq.po2.usuario.Usuario;
 
 class SATTest {
 	
-	private static final Boolean True = null;
 	private Usuario 			  usuario;
 	private Inmueble 			  inmueble1;
 	private Inmueble 			  inmueble2;
 	private Inmueble 			  inmueble3;
+	private Inmueble 			  inmueble4;
+	private Inmueble 			  inmueble5;
+	private Inmueble 			  inmueble6;
+	private Inmueble 			  inmueble7;
 	private TipoInmueble 		  tipoInmueble;
 	private Servicio 			  servicio;
 	private FormaDePago	    	  formaDePago;
@@ -49,6 +52,10 @@ class SATTest {
 		this.inmueble1 			 = mock(Inmueble.class);
 		this.inmueble2 			 = mock(Inmueble.class);
 		this.inmueble3 			 = mock(Inmueble.class);
+		this.inmueble4 			 = mock(Inmueble.class);
+		this.inmueble5 			 = mock(Inmueble.class);
+		this.inmueble6 			 = mock(Inmueble.class);
+		this.inmueble7 			 = mock(Inmueble.class);
 		this.tipoInmueble 		 = mock(TipoInmueble.class);
 		this.servicio 			 = mock(Servicio.class);
 		this.formaDePago 		 = mock(FormaDePago.class);
@@ -177,15 +184,40 @@ class SATTest {
 	void testBusquedaDeInmueblesParaReservar() {
 		when(inmueble1.isDisponible(LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20))).thenReturn(true);
 		when(inmueble1.getCiudad()).thenReturn("Quilmes");
+		when(inmueble1.getCapacidad()).thenReturn(3);
+		when(inmueble1.calcularPrecioTotal(LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20))).thenReturn(6000.0);
 		when(inmueble2.isDisponible(LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20))).thenReturn(false);
-		when(inmueble2.getCiudad()).thenReturn("Bernal");
+		when(inmueble2.getCiudad()).thenReturn("Quilmes");
+		when(inmueble2.getCapacidad()).thenReturn(3);
+		when(inmueble2.calcularPrecioTotal(LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20))).thenReturn(6000.0);
 		when(inmueble3.isDisponible(LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20))).thenReturn(true);
 		when(inmueble3.getCiudad()).thenReturn("Quilmes");
+		when(inmueble3.getCapacidad()).thenReturn(3);
+		when(inmueble3.calcularPrecioTotal(LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20))).thenReturn(7000.0);
+		when(inmueble4.isDisponible(LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20))).thenReturn(true);
+		when(inmueble4.getCiudad()).thenReturn("Bernal");
+		when(inmueble4.getCapacidad()).thenReturn(3);
+		when(inmueble4.calcularPrecioTotal(LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20))).thenReturn(4000.0);
+		when(inmueble5.isDisponible(LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20))).thenReturn(true);
+		when(inmueble5.getCiudad()).thenReturn("Quilmes");
+		when(inmueble5.getCapacidad()).thenReturn(2);
+		when(inmueble5.calcularPrecioTotal(LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20))).thenReturn(6000.0);
+		when(inmueble6.isDisponible(LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20))).thenReturn(true);
+		when(inmueble6.getCiudad()).thenReturn("Quilmes");
+		when(inmueble6.getCapacidad()).thenReturn(3);
+		when(inmueble6.calcularPrecioTotal(LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20))).thenReturn(7000.0);
+		when(inmueble7.isDisponible(LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20))).thenReturn(true);
+		when(inmueble7.getCiudad()).thenReturn("Quilmes");
+		when(inmueble7.getCapacidad()).thenReturn(3);
+		when(inmueble7.calcularPrecioTotal(LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20))).thenReturn(11000.0);
 		this.SAT.altaInmueble(inmueble1);
 		this.SAT.altaInmueble(inmueble2);
 		this.SAT.altaInmueble(inmueble3);
-		assertEquals(Arrays.asList(inmueble1,inmueble3), this.SAT.busquedaDelInquilino("Quilmes", LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20), 0, 0.0, 0.0));
+		this.SAT.altaInmueble(inmueble4);
+		this.SAT.altaInmueble(inmueble5);
+		this.SAT.altaInmueble(inmueble6);
+		this.SAT.altaInmueble(inmueble7);
+		assertEquals(Arrays.asList(inmueble1,inmueble3,inmueble6), this.SAT.busquedaDelInquilino("Quilmes", LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20), 3, 5000.0, 10000.0));
 	}
-	
 	
 }

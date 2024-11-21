@@ -104,11 +104,21 @@ public class SAT {
 		return this.getInmuebles().stream()
 				.filter(i -> esMismaCiudad(ciudad, i))
 				.filter(i -> i.isDisponible(fechaEntrada, fechaSalida))
+				.filter(i -> isIgualCapacidad(cantHuespuedes, i))
+				.filter(i -> isValorEntre(minPrecio, maxPrecio, fechaEntrada, fechaSalida, i))
 				.collect(Collectors.toList());
 	}
 
 	private boolean esMismaCiudad(String ciudad, Inmueble i) {
 		return i.getCiudad().equals(ciudad);
+	}
+	
+	private boolean isIgualCapacidad(int capacidad, Inmueble inmueble) {
+		return inmueble.getCapacidad() == capacidad;
+	}
+	
+	private boolean isValorEntre(Double minPrecio, Double maxPrecio, LocalDate fechaEntrada, LocalDate fechaSalida, Inmueble inmueble) {
+		return (inmueble.calcularPrecioTotal(fechaEntrada, fechaSalida) >= minPrecio && inmueble.calcularPrecioTotal(fechaEntrada, fechaSalida) <= maxPrecio);
 	}
 	
 	public List<Inmueble> getInmueblesDisponibles(String ciudad, LocalDate fechaEntrada, LocalDate fechaSalida, int cantHuespuedes, Double minPrecio, Double maxPrecio) {
