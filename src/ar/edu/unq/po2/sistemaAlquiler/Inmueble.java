@@ -3,7 +3,10 @@ package ar.edu.unq.po2.sistemaAlquiler;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import ar.edu.unq.po2.reserva.Reserva;
 import ar.edu.unq.po2.usuario.Propietario;
@@ -23,16 +26,16 @@ public class Inmueble extends Notificador implements IRankeable {
 	private LocalTime 	 	  	checkOut;
 	private Double 		 	  	precio;
 	private PoliticaCancelacion politicaCancelacion;
-	private List<Servicio> 	  	servicios;
-	private List<String> 	  	fotos;
-	private List<FormaDePago> 	formasDePago;
-	private List<Alquiler>	  	alquileres;
-	private List<Reserva>	  	reservas;
-	private List<Ranking>		rankeos;
-	private List<Periodo> periodos;
+	private Set<Servicio> 	  	servicios;
+	private Set<String> 	  	fotos;
+	private Set<FormaDePago> 	formasDePago;
+	private Set<Alquiler>	  	alquileres;
+	private Set<Reserva>	  	reservas;
+	private Set<Ranking>		rankeos;
+	private Set<Periodo> 		periodos;
 	
 	public Inmueble(Usuario propietario, TipoInmueble tipoInmueble, Double superficie, String pais, String ciudad, String direccion, int capacidad, LocalTime checkIn, 
-					LocalTime checkOut, Double precio, PoliticaCancelacion politicaCancelacion, List<Servicio> servicios, List<String> fotos, List<FormaDePago> formasDePago) {
+					LocalTime checkOut, Double precio, PoliticaCancelacion politicaCancelacion, Set<Servicio> servicios, Set<String> fotos, Set<FormaDePago> formasDePago) {
 		this.propietario		 = propietario;
 		this.tipoInmueble 		 = tipoInmueble;
 		this.superficie   		 = superficie;
@@ -47,10 +50,10 @@ public class Inmueble extends Notificador implements IRankeable {
 		this.fotos 		  		 = fotos;
 		this.formasDePago 		 = formasDePago;
 		this.politicaCancelacion = politicaCancelacion;
-		this.alquileres	  = new ArrayList<Alquiler>();
-		this.reservas	  = new ArrayList<Reserva>();
-		this.rankeos	  = new ArrayList<Ranking>();
-		this.periodos 	  = new ArrayList<Periodo>();
+		this.alquileres	  = new HashSet<Alquiler>();
+		this.reservas	  = new HashSet<Reserva>();
+		this.rankeos	  = new HashSet<Ranking>();
+		this.periodos 	  = new HashSet<Periodo>();
 	}
 	public void agregarPeriodo(Periodo periodo) {
 		this.periodos.add(periodo);
@@ -61,7 +64,7 @@ public class Inmueble extends Notificador implements IRankeable {
 	}
 	
 	public List<Periodo> getPeriodos() {
-		return this.periodos;
+		return this.periodos.stream().collect(Collectors.toList());
 	}
 	
 	public Double calcularPrecioTotal(LocalDate fechaInicio, LocalDate fechaFin) {
@@ -90,6 +93,7 @@ public class Inmueble extends Notificador implements IRankeable {
 	public Usuario getPropietario() {
 		return propietario;
 	}
+	
 	public String getCiudad() {
 		return this.ciudad;
 	}
@@ -99,27 +103,27 @@ public class Inmueble extends Notificador implements IRankeable {
 	}
 	
 	public List<Servicio> getServicios() {
-		return servicios;
+		return servicios.stream().collect(Collectors.toList());
 	}
 	
 	public List<String> getFotos() {
-		return fotos;
+		return fotos.stream().collect(Collectors.toList());
 	}
 	
 	public List<FormaDePago> getFormasDePago() {
-		return formasDePago;
+		return formasDePago.stream().collect(Collectors.toList());
 	}
 	
 	public List<Alquiler> getAlquileres() {
-		return alquileres;
+		return alquileres.stream().collect(Collectors.toList());
 	}
 	
 	public List<Reserva> getReservas() {
-		return reservas;
+		return reservas.stream().collect(Collectors.toList());
 	}
 	
 	public List<Ranking> getRankeos() {
-		return rankeos;
+		return rankeos.stream().collect(Collectors.toList());
 	}
 
 	public void setPrecio(Double precio) {
@@ -130,54 +134,32 @@ public class Inmueble extends Notificador implements IRankeable {
 	}
 	
 	public void addServicio(Servicio servicio) {
-		if (this.getServicios().contains(servicio)) {
-			System.out.println("El servicio ya existe.");
-		} else {
-			this.getServicios().add(servicio);
-		}
+		this.servicios.add(servicio);
 	}
 	
 	public void addFoto(String foto) {
-		if (this.getFotos().size() >= 5) {
-			System.out.println("Se alcanzó el máximo permitido de fotos.");
-		} else {
-			this.getFotos().add(foto);
-		}
+		this.fotos.add(foto);
 	}
 
 	public void addFormaDePago(FormaDePago formaDePago) {
-		if (this.getFormasDePago().contains(formaDePago)) {
-			System.out.println("La forma de pago ya existe.");
-		} else {
-			this.getFormasDePago().add(formaDePago);
-		}
+		this.formasDePago.add(formaDePago);
 	}
 	
 	public void addAlquiler(Alquiler alquiler) {
-		if (this.getAlquileres().contains(alquiler)) {
-			System.out.println("Ese alquiler ya existe.");
-		} else {
-			this.getAlquileres().add(alquiler);
-		}
+		this.alquileres.add(alquiler);
 	}
 	
 	public void addReserva(Reserva reserva) {
-		if (this.getReservas().contains(reserva)) {
-			System.out.println("Esa reserva ya existe.");
-		} else {
-			this.getReservas().add(reserva);
-		}
+		this.reservas.add(reserva);
 	}
 	
 	public void addRankeo(Ranking rankeo) {
-			this.getRankeos().add(rankeo);
+		this.rankeos.add(rankeo);
 	}
 
 	public void cancelarReserva(Reserva reserva) {
 		if (this.getReservas().contains(reserva)) {
 			reserva.cancelarReserva();	
-		} else {
-			System.out.println("Reserva no valida");
 		}
 	}
 	

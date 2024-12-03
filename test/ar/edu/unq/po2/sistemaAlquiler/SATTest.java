@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,7 +43,8 @@ class SATTest {
 	private List<Servicio> 		  servicios;
 	private List<FormaDePago>	  formasDePago;
 	private List<CategoriaRankeo> categoriasRankeo;
-	private Inquilino inquilino;
+	private Inquilino 			  inquilino1;
+	private Inquilino 			  inquilino2;
 	private SAT					  SAT;
 
 	@BeforeEach
@@ -70,7 +72,8 @@ class SATTest {
 		this.servicios 			 = new ArrayList<Servicio>();
 		this.formasDePago 		 = new ArrayList<FormaDePago>();
 		this.categoriasRankeo 	 = new ArrayList<CategoriaRankeo>();
-		this.inquilino = mock(Inquilino.class);
+		this.inquilino1			 = mock(Inquilino.class);
+		this.inquilino2			 = mock(Inquilino.class);
 		
 		this.SAT				 = new SAT();
 	}
@@ -159,16 +162,21 @@ class SATTest {
 	}
 	@Test
 	void todasLasReservasDeUnInquilino() {
-		
-		when(reserva1.getInquilino()).thenReturn(inquilino);
-		when(reserva2.getInquilino()).thenReturn(inquilino);
+		when(reserva1.getInquilino()).thenReturn(inquilino1);
+		when(reserva2.getInquilino()).thenReturn(inquilino2);
+		when(reserva3.getInquilino()).thenReturn(inquilino1);
 		inmueble1.addReserva(reserva1);
 		inmueble2.addReserva(reserva2);
-		when(inmueble1.getReservas()).thenReturn(Arrays.asList(reserva1));
-		when(inmueble2.getReservas()).thenReturn(Arrays.asList(reserva2));
+		inmueble2.addReserva(reserva3);
+		when(inmueble1.getReservas()).thenReturn((Arrays.asList(reserva1)));
+		when(inmueble2.getReservas()).thenReturn((Arrays.asList(reserva2)));
+		when(inmueble2.getReservas()).thenReturn((Arrays.asList(reserva3)));
 		SAT.altaInmueble(inmueble1);
 		SAT.altaInmueble(inmueble2);
-		assertEquals(Arrays.asList(reserva1,reserva2), SAT.todasLasReservas(inquilino));
+		SAT.altaInmueble(inmueble3);
+		assertTrue(SAT.todasLasReservas(inquilino1).contains(reserva1));
+		assertFalse(SAT.todasLasReservas(inquilino1).contains(reserva2));
+		assertTrue(SAT.todasLasReservas(inquilino1).contains(reserva3));
 	}
 	@Test
 	void testGetInmueblesDisponibles() {
@@ -178,7 +186,9 @@ class SATTest {
 		this.SAT.altaInmueble(inmueble1);
 		this.SAT.altaInmueble(inmueble2);
 		this.SAT.altaInmueble(inmueble3);
-		assertEquals(Arrays.asList(inmueble1,inmueble3), this.SAT.getInmueblesDisponibles("", LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20), 0, 0.0, 0.0));
+		assertTrue(this.SAT.getInmueblesDisponibles("", LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20), 0, 0.0, 0.0).contains(inmueble1));
+		assertFalse(this.SAT.getInmueblesDisponibles("", LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20), 0, 0.0, 0.0).contains(inmueble2));
+		assertTrue(this.SAT.getInmueblesDisponibles("", LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20), 0, 0.0, 0.0).contains(inmueble3));
 	}
 	@Test
 	void testBusquedaDeInmueblesParaReservar() {
@@ -217,7 +227,13 @@ class SATTest {
 		this.SAT.altaInmueble(inmueble5);
 		this.SAT.altaInmueble(inmueble6);
 		this.SAT.altaInmueble(inmueble7);
-		assertEquals(Arrays.asList(inmueble1,inmueble3,inmueble6), this.SAT.busquedaDelInquilino("Quilmes", LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20), 3, 5000.0, 10000.0));
+		assertTrue(this.SAT.busquedaDelInquilino("Quilmes", LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20), 3, 5000.0, 10000.0).contains(inmueble1));
+		assertFalse(this.SAT.busquedaDelInquilino("Quilmes", LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20), 3, 5000.0, 10000.0).contains(inmueble2));
+		assertTrue(this.SAT.busquedaDelInquilino("Quilmes", LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20), 3, 5000.0, 10000.0).contains(inmueble3));
+		assertFalse(this.SAT.busquedaDelInquilino("Quilmes", LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20), 3, 5000.0, 10000.0).contains(inmueble4));
+		assertFalse(this.SAT.busquedaDelInquilino("Quilmes", LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20), 3, 5000.0, 10000.0).contains(inmueble5));
+		assertTrue(this.SAT.busquedaDelInquilino("Quilmes", LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20), 3, 5000.0, 10000.0).contains(inmueble6));
+		assertFalse(this.SAT.busquedaDelInquilino("Quilmes", LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 20), 3, 5000.0, 10000.0).contains(inmueble7));
 	}
 	
 }
