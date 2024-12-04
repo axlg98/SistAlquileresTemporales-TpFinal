@@ -10,7 +10,10 @@ import java.lang.module.FindException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,22 +36,23 @@ class InmuebleTest {
 	private Double 		 	  	precio;
 	private PoliticaCancelacion politicaCancelacion;
 	private Servicio			servicio;
-	private List<Servicio> 	  	servicios;
-	private String				foto;
-	private List<String> 	  	fotos;
+	private Set<Servicio> 	  	servicios;
+	private String				foto1;
+	private String				foto2;
+	private Set<String> 	  	fotos;
 	private FormaDePago			formaDePago;
-	private List<FormaDePago> 	formasDePago;
+	private Set<FormaDePago> 	formasDePago;
 	private Alquiler			alquiler;
-	private List<Alquiler>	  	alquileres;
+	private Set<Alquiler>	  	alquileres;
 	private Reserva				reserva1;
 	private Reserva				reserva2;
 	private Reserva				reserva3;
-	private List<Reserva>	  	reservas;
+	private Set<Reserva>	  	reservas;
 	private Ranking				ranking1;
 	private Ranking				ranking2;
 	private Ranking				ranking3;
 	private Ranking				ranking4;
-	private List<Ranking>		rankeos;
+	private Set<Ranking>		rankeos;
 	private CategoriaRankeo		categoriaRankeo1;
 	private CategoriaRankeo		categoriaRankeo2;
 	private TemporadaAlta 		tempoAlta;
@@ -70,25 +74,25 @@ class InmuebleTest {
 		this.checkIn	 		 = LocalTime.of(15, 0);
 		this.checkOut	  		 = LocalTime.of(10, 0);
 		this.precio				 = 20000.0;
-		this.foto				 = "foto1.jpg";
+		this.foto1				 = "foto1.jpg";
+		this.foto2				 = "foto2.jpg";
 		this.politicaCancelacion = mock(PoliticaCancelacion.class);
 		this.servicio			 = mock(Servicio.class);
-		this.servicios			 = new ArrayList<Servicio>();
-		this.foto				 = "foto.jpg";
-		this.fotos				 = new ArrayList<String>();
+		this.servicios			 = new HashSet<Servicio>();
+		this.fotos				 = new HashSet<String>();
 		this.formaDePago		 = mock(FormaDePago.class);
-		this.formasDePago		 = new ArrayList<FormaDePago>();
+		this.formasDePago		 = new HashSet<FormaDePago>();
 		this.alquiler			 = mock(Alquiler.class);
-		this.alquileres			 = new ArrayList<Alquiler>();
+		this.alquileres			 = new HashSet<Alquiler>();
 		this.reserva1			 = mock(Reserva.class);
 		this.reserva2			 = mock(Reserva.class);
 		this.reserva3			 = mock(Reserva.class);
-		this.reservas			 = new ArrayList<Reserva>();
+		this.reservas			 = new HashSet<Reserva>();
 		this.ranking1			 = mock(Ranking.class);
 		this.ranking2			 = mock(Ranking.class);
 		this.ranking3			 = mock(Ranking.class);
 		this.ranking4			 = mock(Ranking.class);
-		this.rankeos			 = new ArrayList<Ranking>();
+		this.rankeos			 = new HashSet<Ranking>();
 		this.categoriaRankeo1	 = mock(CategoriaRankeo.class);
 		this.categoriaRankeo2	 = mock(CategoriaRankeo.class);
 		this.tempoAlta 			 = mock(TemporadaAlta.class);
@@ -257,32 +261,48 @@ class InmuebleTest {
 	
 	@Test
 	void testGetServicios(){
+		List<Servicio> servicios = this.servicios.stream().collect(Collectors.toList()); 
 		assertEquals(servicios, inmueble.getServicios());
 	}
 	
 	@Test
 	void testGetFotos(){
+		List<String> fotos = this.fotos.stream().collect(Collectors.toList());
 		assertEquals(fotos, inmueble.getFotos());
 	}
 	
 	@Test
 	void testGetFormasDePago(){
+		List<FormaDePago> formasDePago = this.formasDePago.stream().collect(Collectors.toList());
 		assertEquals(formasDePago, inmueble.getFormasDePago());
 	}
 	
 	@Test
 	void testGetAlquileres(){
+		List<Alquiler> alquileres = this.alquileres.stream().collect(Collectors.toList());
 		assertEquals(alquileres, inmueble.getAlquileres());
 	}
 	
 	@Test
 	void testGetReservas(){
+		List<Reserva> reservas = this.reservas.stream().collect(Collectors.toList());
 		assertEquals(reservas, inmueble.getReservas());
 	}
 	
 	@Test
 	void testGetRankeos(){
+		List<Ranking> rankeos = this.rankeos.stream().collect(Collectors.toList());
 		assertEquals(rankeos, inmueble.getRankeos());
+	}
+	
+	@Test
+	void testGetCiudad() {
+		assertEquals(ciudad, inmueble.getCiudad());
+	}
+	
+	@Test
+	void testGetCapacidad() {
+		assertEquals(capacidad, inmueble.getCapacidad());
 	}
 	
 	@Test
@@ -304,14 +324,14 @@ class InmuebleTest {
 	
 	@Test
 	void testAddFoto() {
-		inmueble.addFoto(foto);
+		inmueble.addFoto(foto1);
 		assertEquals(1, inmueble.getFotos().size());
-		inmueble.addFoto(foto);
-		inmueble.addFoto(foto);
-		inmueble.addFoto(foto);
-		inmueble.addFoto(foto);
-		inmueble.addFoto(foto);
-		assertEquals(5, inmueble.getFotos().size());
+		inmueble.addFoto(foto1);
+		inmueble.addFoto(foto1);
+		inmueble.addFoto(foto1);
+		inmueble.addFoto(foto2);
+		inmueble.addFoto(foto2);
+		assertEquals(2, inmueble.getFotos().size());
 	}
 	
 	@Test
