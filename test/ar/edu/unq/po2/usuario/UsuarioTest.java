@@ -3,10 +3,12 @@ package ar.edu.unq.po2.usuario;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -36,7 +38,6 @@ class UsuarioTest {
 	 Reserva reserva;
 	
 	
-	
 	@BeforeEach
 	void setUp() throws Exception {
 		inquilino = new Usuario("Damian", "@@", "123");
@@ -55,33 +56,33 @@ class UsuarioTest {
 	
 	@Test
 	void PropietarioRankeandoInquilinoTest() {
-		propietario.rankearInquilino(1, inmueble, "pésimo servicio");
-		
-		assertEquals(propietario.getRankings().size(),1);
+		when(r1.getPuntaje()).thenReturn(1);
+		propietario.rankearInquilino(inquilino, r1);
+		assertEquals(1, inquilino.getRankings().size());
 	}
 	
 	@Test
 	void InquilinoRankeandoPropietarioTest() {
-		inquilino.rankearPropietario(3, inmueble, "Regular");
-		
-		assertEquals(inquilino.getRankings().size(),1);
+		when(r1.getPuntaje()).thenReturn(1);
+		inquilino.rankearPropietario(propietario, r1);
+		assertEquals(1, propietario.getRankings().size());
 	}
 	
 	@Test
 	void InquilinoRankeandoInmuebleTest() {
-		inquilino.rankearInmueble(5, inmueble, "Excelenteservicio");
-		
-		assertEquals(inquilino.getRankings().size(),1);
+		when(r1.getPuntaje()).thenReturn(1);
+		inquilino.rankearInmueble(inmueble, r1);
+		verify(inmueble, times(1)).addRankeo(r1);
 	}
 	
 	@Test
 	void addRankingTest() {
 		propietario.addRanking(r1);
 		propietario.addRanking(r2);
-		propietario.addRanking(r3);
-		propietario.addRanking(r4);
-		
-		assertEquals(propietario.getRankings().size(),4);
+		inquilino.addRanking(r3);
+		inquilino.addRanking(r4);
+		assertEquals(2, propietario.getRankings().size());
+		assertEquals(2, inquilino.getRankings().size());
 	}
 	
 	@Test
@@ -96,14 +97,16 @@ class UsuarioTest {
 	
 	@Test
 	void rankearConPuntajeMayorA5Test() {
-		propietario.rankearInquilino(6, inmueble, "Excelente servicio");
-		assertEquals(propietario.getRankings().size(),0);
+		when(r1.getPuntaje()).thenReturn(6);
+		propietario.rankearInquilino(inquilino, r1);
+		assertEquals(0, inquilino.getRankings().size());
 	}
 	
 	@Test
 	void rankearConPuntajeMenorA1Test() {
-		propietario.rankearInquilino(0, inmueble, "Pésimo servicio");
-		assertEquals(propietario.getRankings().size(),0);
+		when(r1.getPuntaje()).thenReturn(0);
+		propietario.rankearInquilino(inquilino, r1);
+		assertEquals(0, inquilino.getRankings().size());
 	}
 	
 	//Inquilino
@@ -127,6 +130,12 @@ class UsuarioTest {
 		int tamaño = (inquilino.buscarAlquiler(sat, "quilmes", LocalDate.now(), LocalDate.now(), 5, 1000.0, 2000.0)).size();
 		
 		assertEquals(tamaño, inmuebles.size());
+	}
+	
+	@Test
+	void testNotificacionReserva() {
+		this.inquilino.reservarInmueble(inmueble, null, null);
+		verify(inmueble, times(1)).informarReserva(inmueble);
 	}
 
 }

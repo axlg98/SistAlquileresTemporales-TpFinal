@@ -25,6 +25,7 @@ import ar.edu.unq.po2.usuario.Usuario;
 class InmuebleTest {
 	private Inmueble			inmueble;
 	private Usuario				propietario;
+	private Usuario				inquilino;
 	private TipoInmueble 	  	tipoInmueble;
 	private Double 		 	  	superficie;
 	private String 		 	  	pais;
@@ -65,6 +66,7 @@ class InmuebleTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		this.propietario		 = mock(Usuario.class);
+		this.inquilino			 = mock(Usuario.class);
 		this.tipoInmueble 		 = mock(TipoInmueble.class);
 		this.superficie  		 = 70.0;
 		this.pais		 		 = "Argentina";
@@ -405,12 +407,27 @@ class InmuebleTest {
 		inmueble.suscribirNotificado(notificado1);
 		inmueble.suscribirNotificado(notificado2);
 		inmueble.setPrecio(15000.0);
-		verify(notificado1, times(1)).informar();
-		verify(notificado2, times(1)).informar();
+		verify(notificado1, times(1)).recibirBajaDePrecio(inmueble);
+		verify(notificado2, times(1)).recibirBajaDePrecio(inmueble);
 		inmueble.desuscribirNotificado(notificado2);
 		inmueble.setPrecio(10000.0);
-		verify(notificado1, times(2)).informar();
-		verify(notificado2, times(1)).informar();
+		verify(notificado1, times(2)).recibirBajaDePrecio(inmueble);
+		verify(notificado2, times(1)).recibirBajaDePrecio(inmueble);
+	}
+	
+	@Test
+	void testNotificacionCancelacion() {
+		inmueble.suscribirNotificado(notificado1);
+		inmueble.suscribirNotificado(notificado2);
+		inmueble.addReserva(reserva1);
+		inmueble.addReserva(reserva2);
+		inmueble.cancelarReserva(reserva1);
+		verify(notificado1, times(1)).recibirCancelacion(inmueble);
+		verify(notificado2, times(1)).recibirCancelacion(inmueble);
+		inmueble.desuscribirNotificado(notificado2);
+		inmueble.cancelarReserva(reserva2);
+		verify(notificado1, times(2)).recibirCancelacion(inmueble);
+		verify(notificado2, times(1)).recibirCancelacion(inmueble);
 	}
 	
 	@Test

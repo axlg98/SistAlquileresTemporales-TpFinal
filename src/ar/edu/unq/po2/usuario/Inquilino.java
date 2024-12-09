@@ -17,6 +17,6 @@ public interface Inquilino {
 	
 	public void rankearInmueble(Inmueble inmueble, Ranking ranking);
 	
-	public void rankearPropietario(Inmueble inmueble, Ranking ranking);
+	public void rankearPropietario(Usuario propietario, Ranking ranking);
 	
 }

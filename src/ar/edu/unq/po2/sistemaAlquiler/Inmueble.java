@@ -13,7 +13,7 @@ import ar.edu.unq.po2.usuario.Propietario;
 import ar.edu.unq.po2.usuario.Ranking;
 import ar.edu.unq.po2.usuario.Usuario;
 
-public class Inmueble extends Notificador implements IRankeable {
+public class Inmueble implements IRankeable, Notificador {
 	
 	private Usuario				propietario;
 	private TipoInmueble 	  	tipoInmueble;
@@ -33,6 +33,7 @@ public class Inmueble extends Notificador implements IRankeable {
 	private Set<Reserva>	  	reservas;
 	private Set<Ranking>		rankeos;
 	private Set<Periodo> 		periodos;
+	private Set<Notificado>		notificados;
 	
 	public Inmueble(Usuario propietario, TipoInmueble tipoInmueble, Double superficie, String pais, String ciudad, String direccion, int capacidad, LocalTime checkIn, 
 					LocalTime checkOut, Double precio, PoliticaCancelacion politicaCancelacion, Set<Servicio> servicios, Set<String> fotos, Set<FormaDePago> formasDePago) {
@@ -54,6 +55,7 @@ public class Inmueble extends Notificador implements IRankeable {
 		this.reservas	  = new HashSet<Reserva>();
 		this.rankeos	  = new HashSet<Ranking>();
 		this.periodos 	  = new HashSet<Periodo>();
+		this.notificados  = new HashSet<Notificado>();
 	}
 	public void agregarPeriodo(Periodo periodo) {
 		this.periodos.add(periodo);
@@ -91,7 +93,11 @@ public class Inmueble extends Notificador implements IRankeable {
 	    }
 	
 	public Usuario getPropietario() {
-		return propietario;
+		return this.propietario;
+	}
+	
+	public TipoInmueble getTipoInmueble() {
+		return this.tipoInmueble;
 	}
 	
 	public String getCiudad() {
@@ -99,7 +105,7 @@ public class Inmueble extends Notificador implements IRankeable {
 	}
 
 	public int getCapacidad() {
-		return capacidad;
+		return this.capacidad;
 	}
 	
 	public List<Servicio> getServicios() {
@@ -128,7 +134,7 @@ public class Inmueble extends Notificador implements IRankeable {
 
 	public void setPrecio(Double precio) {
 		if (precio < this.precio) {
-			this.informarNotificados();
+			this.informarBajaDePrecio(this);
 		}
 		this.precio = precio;
 	}
@@ -159,7 +165,8 @@ public class Inmueble extends Notificador implements IRankeable {
 
 	public void cancelarReserva(Reserva reserva) {
 		if (this.getReservas().contains(reserva)) {
-			reserva.cancelarReserva();	
+			reserva.cancelarReserva();
+			this.informarCancelacion(this);
 		}
 	}
 	
@@ -180,7 +187,37 @@ public class Inmueble extends Notificador implements IRankeable {
 	private Boolean periodoANotInPeriodoB(LocalDate inicioA, LocalDate finA, LocalDate inicioB, LocalDate finB) {
 		return (finA.isBefore(inicioB) || inicioA.isAfter(finB));
 	}
-
 	
+	@Override
+	public List<Notificado> getNotificados() {
+		return notificados.stream().collect(Collectors.toList());
+	}
+
+	@Override
+	public void suscribirNotificado(Notificado notificado) {
+		this.notificados.add(notificado);
+	}
+	
+	@Override
+	public void desuscribirNotificado(Notificado notificado) {
+		this.notificados.remove(notificado);
+	}
+
+	@Override
+	public void informarCancelacion(Inmueble inmueble) {
+		this.getNotificados().stream().forEach(notificado -> notificado.recibirCancelacion(inmueble));
+		
+	}
+	
+	@Override
+	public void informarReserva(Inmueble inmueble) {
+		this.getNotificados().stream().forEach(notificado -> notificado.recibirReserva(inmueble));
+	}
+	
+	@Override
+	public void informarBajaDePrecio(Inmueble inmueble) {
+		this.getNotificados().stream().forEach(notificado -> notificado.recibirBajaDePrecio(inmueble));
+	}
+
 }
 
