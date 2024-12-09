@@ -6,10 +6,11 @@ import java.util.List;
 
 import ar.edu.unq.po2.reserva.Reserva;
 import ar.edu.unq.po2.sistemaAlquiler.CategoriaRankeo;
+import ar.edu.unq.po2.sistemaAlquiler.IRankeable;
 import ar.edu.unq.po2.sistemaAlquiler.Inmueble;
 import ar.edu.unq.po2.sistemaAlquiler.SAT;
 
-public class Usuario implements Propietario, Inquilino{
+public class Usuario implements Propietario, Inquilino, IRankeable {
 	
 	private String nombreCompleto;
 	private String telefono;
@@ -28,41 +29,7 @@ public class Usuario implements Propietario, Inquilino{
 	}
 
 	
-	
-	//Rankeo
-	
-	public void rankearInquilino(int puntaje, Inmueble inmueble,String comentario) {
-		if (puntaje >= 1 && puntaje <= 5) {
-			CategoriaRankeo categoria = new CategoriaRankeo("Inquilino", null);
-			Ranking nuevoRanking = new Ranking(puntaje,categoria,comentario);
-			inmueble.getRankeos().add(nuevoRanking);
-			this.getRankings().add(nuevoRanking);
-		}
-
-	}
-	
-	public void rankearPropietario(int puntaje, Inmueble inmueble,String comentario) {
-		if ( puntaje >= 1 && puntaje <= 5) {
-			CategoriaRankeo categoria = new CategoriaRankeo("Propietario", null);
-			Ranking nuevoRanking = new Ranking(puntaje,categoria,comentario);
-			inmueble.getRankeos().add(nuevoRanking);
-			this.getRankings().add(nuevoRanking);
-		}
-		
-	}
-	
-	public void rankearInmueble(int puntaje, Inmueble inmueble,String comentario) {
-		if ( puntaje >= 1 && puntaje <= 5) {
-			CategoriaRankeo categoria = new CategoriaRankeo("Inmueble", null);
-			Ranking nuevoRanking = new Ranking(puntaje,categoria,comentario);
-			inmueble.getRankeos().add(nuevoRanking);
-			this.getRankings().add(nuevoRanking);
-		}
-	}
-	
-	
 	//Métodos para el Propietario
-	
 	
 	
 	@Override
@@ -71,14 +38,19 @@ public class Usuario implements Propietario, Inquilino{
 
 	}
 
-
+	@Override
+	public void rankearInquilino(Usuario inquilino, Ranking ranking) {
+		if (ranking.getPuntaje()>=1 && ranking.getPuntaje()<=5) {
+			inquilino.addRanking(ranking);
+		}
+	}
 	
 	// Inquilino
 	@Override
 	public void reservarInmueble(Inmueble inmueble, LocalDate fechaInicio, LocalDate fechaFin) {
 		Reserva reserva = new Reserva(fechaInicio, fechaFin, this);
 		inmueble.addReserva(reserva);
-		
+		inmueble.informarReserva(inmueble);
 	}
 
 	@Override
@@ -87,6 +59,19 @@ public class Usuario implements Propietario, Inquilino{
 		return sat.busquedaDelInquilino(ciudad, fechaEntrada, fechaSalida, cantHuespuedes, minPrecio,maxPrecio);
 	}
 
+	@Override
+	public void rankearInmueble(Inmueble inmueble, Ranking ranking) {
+		if (ranking.getPuntaje()>=1 && ranking.getPuntaje()<=5) {
+			inmueble.addRankeo(ranking);
+		}	
+	}
+	
+	@Override
+	public void rankearPropietario(Usuario propietario, Ranking ranking) {
+		if (ranking.getPuntaje()>=1 && ranking.getPuntaje()<=5) {
+			propietario.addRanking(ranking);
+		}	
+	}
 	
 	
 	//GET 
@@ -94,22 +79,17 @@ public class Usuario implements Propietario, Inquilino{
 	public List<Ranking> getRankings() {
 		return rankings;
 	}
-	
 
 	@Override
-	public void rankearInmueble(Inmueble inmueble, Ranking ranking) {
-		inmueble.addRankeo(ranking);
+	public Double getPromedioGeneral() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public void rankearPropietario(Inmueble inmueble, Ranking ranking) {
-		inmueble.getPropietario().addRanking(ranking);
+	public Double getPromedioCategoria(CategoriaRankeo categoriaRankeo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
-
-	@Override
-	public void rankearInquilino(Usuario inquilino, Ranking ranking) {
-		inquilino.addRanking(ranking);
-	}
-	
 	
 }
