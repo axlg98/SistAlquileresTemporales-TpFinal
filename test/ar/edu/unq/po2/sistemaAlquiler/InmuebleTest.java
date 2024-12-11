@@ -35,7 +35,10 @@ class InmuebleTest {
 	private LocalTime 	 	  	checkIn;
 	private LocalTime 	 	  	checkOut;
 	private Double 		 	  	precio;
-	private PoliticaCancelacion politicaCancelacion;
+	private IPoliticaCancelacion politicaCancelacion;
+	private IPoliticaCancelacion cancelacionGratuita;
+	private IPoliticaCancelacion intermedia;
+	private IPoliticaCancelacion sinCancelacion;
 	private Servicio			servicio;
 	private Set<Servicio> 	  	servicios;
 	private String				foto1;
@@ -78,7 +81,11 @@ class InmuebleTest {
 		this.precio				 = 20000.0;
 		this.foto1				 = "foto1.jpg";
 		this.foto2				 = "foto2.jpg";
-		this.politicaCancelacion = mock(PoliticaCancelacion.class);
+		this.politicaCancelacion = mock(IPoliticaCancelacion.class);
+		this.cancelacionGratuita = mock(CancelacionGratuita.class);
+		this.sinCancelacion      = mock(SinCancelacion.class);
+		this.intermedia			 = mock(Intermedia.class);
+		
 		this.servicio			 = mock(Servicio.class);
 		this.servicios			 = new HashSet<Servicio>();
 		this.fotos				 = new HashSet<String>();
@@ -368,13 +375,26 @@ class InmuebleTest {
 	
 	@Test
 	void testCancelarReserva() {
+		when(reserva1.getFechaInicio()).thenReturn(LocalDate.of(2024, 12, 1));
+		when(reserva1.getFechaFin()).thenReturn(LocalDate.of(2024, 12, 5));
+		
+		when(reserva2.getFechaInicio()).thenReturn(LocalDate.of(2024, 12, 6));
+		when(reserva2.getFechaFin()).thenReturn(LocalDate.of(2024, 12, 10));
+		
+		when(cancelacionGratuita.costoDeCancelacion(reserva1, LocalDate.of(2024, 11, 20), inmueble.getPrecio())).thenReturn(0.0);
+		inmueble.setPoliticaCancelacion(cancelacionGratuita);
+		
+		
 		inmueble.addReserva(reserva1);
-		inmueble.cancelarReserva(reserva1);
+		inmueble.cancelarReserva(reserva1, LocalDate.of(2024, 11, 30) );
+		
+		assertEquals(cancelacionGratuita.costoDeCancelacion(reserva1,  LocalDate.of(2024, 11, 20), inmueble.getPrecio()), 0.0);
 		verify(reserva1, times(1)).cancelarReserva();
-		inmueble.cancelarReserva(reserva2);
+		
+		inmueble.cancelarReserva(reserva2, LocalDate.of(2024, 11, 30));
 		verify(reserva2, times(0)).cancelarReserva();
 	}
-	
+	// falta hacer para intermedia y Sin cancelacion
 	@Test
 	void testGetPromedioGeneral() {
 		inmueble.addRankeo(ranking1);
@@ -421,11 +441,11 @@ class InmuebleTest {
 		inmueble.suscribirNotificado(notificado2);
 		inmueble.addReserva(reserva1);
 		inmueble.addReserva(reserva2);
-		inmueble.cancelarReserva(reserva1);
+		inmueble.cancelarReserva(reserva1, LocalDate.of(2024, 11, 30));
 		verify(notificado1, times(1)).recibirCancelacion(inmueble);
 		verify(notificado2, times(1)).recibirCancelacion(inmueble);
 		inmueble.desuscribirNotificado(notificado2);
-		inmueble.cancelarReserva(reserva2);
+		inmueble.cancelarReserva(reserva2, LocalDate.of(2024, 11, 30));
 		verify(notificado1, times(2)).recibirCancelacion(inmueble);
 		verify(notificado2, times(1)).recibirCancelacion(inmueble);
 	}

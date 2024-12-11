@@ -25,7 +25,7 @@ public class Inmueble implements IRankeable, Notificador {
 	private LocalTime 	 	  	checkIn;
 	private LocalTime 	 	  	checkOut;
 	private Double 		 	  	precio;
-	private PoliticaCancelacion politicaCancelacion;
+	private IPoliticaCancelacion politicaCancelacion;
 	private Set<Servicio> 	  	servicios;
 	private Set<String> 	  	fotos;
 	private Set<FormaDePago> 	formasDePago;
@@ -36,7 +36,7 @@ public class Inmueble implements IRankeable, Notificador {
 	private Set<Notificado>		notificados;
 	
 	public Inmueble(Usuario propietario, TipoInmueble tipoInmueble, Double superficie, String pais, String ciudad, String direccion, int capacidad, LocalTime checkIn, 
-					LocalTime checkOut, Double precio, PoliticaCancelacion politicaCancelacion, Set<Servicio> servicios, Set<String> fotos, Set<FormaDePago> formasDePago) {
+					LocalTime checkOut, Double precio, IPoliticaCancelacion politicaCancelacion, Set<Servicio> servicios, Set<String> fotos, Set<FormaDePago> formasDePago) {
 		this.propietario		 = propietario;
 		this.tipoInmueble 		 = tipoInmueble;
 		this.superficie   		 = superficie;
@@ -56,6 +56,9 @@ public class Inmueble implements IRankeable, Notificador {
 		this.rankeos	  = new HashSet<Ranking>();
 		this.periodos 	  = new HashSet<Periodo>();
 		this.notificados  = new HashSet<Notificado>();
+	}
+	public void setPoliticaCancelacion(IPoliticaCancelacion p ) {
+		this.politicaCancelacion = p; 
 	}
 	public void agregarPeriodo(Periodo periodo) {
 		this.periodos.add(periodo);
@@ -163,12 +166,35 @@ public class Inmueble implements IRankeable, Notificador {
 		this.rankeos.add(rankeo);
 	}
 
-	public void cancelarReserva(Reserva reserva) {
+	
+	
+	
+	
+	public void cancelarReserva(Reserva reserva, LocalDate fechaCancelacion) {
 		if (this.getReservas().contains(reserva)) {
-			reserva.cancelarReserva();
+			this.costoPorCancelacion(reserva, fechaCancelacion);
+
 			this.informarCancelacion(this);
 		}
 	}
+	public void costoPorCancelacion(Reserva r, LocalDate fechaCancelacion) {
+		for (FormaDePago forma : formasDePago) {
+			Double costo = this.politicaCancelacion.costoDeCancelacion(r, fechaCancelacion, this.getPrecio());
+			forma.pagar(costo);
+		}
+		r.cancelarReserva();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@Override
 	public Double getPromedioGeneral() {

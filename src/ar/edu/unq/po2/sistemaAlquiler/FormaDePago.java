@@ -11,5 +11,9 @@ public class FormaDePago {
 	public String getNombre() {
 		return nombre;
 	}
-
+	public Double pagar(Double monto) {
+		// al no especificar cómo pagar, dejamos que retorne solamente el monto.
+		
+		return monto;
+	}
 }
