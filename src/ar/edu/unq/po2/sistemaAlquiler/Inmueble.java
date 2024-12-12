@@ -29,7 +29,7 @@ public class Inmueble implements IRankeable, Notificador {
 	private Set<Servicio> 	  	servicios;
 	private Set<String> 	  	fotos;
 	private FormaDePago	  		formaDePago;
-	private Set<Alquiler>	  	alquileres;
+	
 	private Set<Reserva>	  	reservas;
 	private Set<Ranking>		rankeos;
 	private Set<Periodo> 		periodos;
@@ -51,7 +51,7 @@ public class Inmueble implements IRankeable, Notificador {
 		this.fotos 		  		 = fotos;
 		this.formaDePago 		 = formasDePago;
 		this.politicaCancelacion = politicaCancelacion;
-		this.alquileres	  = new HashSet<Alquiler>();
+		
 		this.reservas	  = new HashSet<Reserva>();
 		this.rankeos	  = new HashSet<Ranking>();
 		this.periodos 	  = new HashSet<Periodo>();
@@ -123,9 +123,7 @@ public class Inmueble implements IRankeable, Notificador {
 		return this.formaDePago;
 	}
 	
-	public List<Alquiler> getAlquileres() {
-		return alquileres.stream().collect(Collectors.toList());
-	}
+	
 	
 	public List<Reserva> getReservas() {
 		return reservas.stream().collect(Collectors.toList());
@@ -150,13 +148,8 @@ public class Inmueble implements IRankeable, Notificador {
 		this.fotos.add(foto);
 	}
 
-	public void addFormaDePago(FormaDePago formaDePago) {
-		this.formaDePago = formaDePago;
-	}
 	
-	public void addAlquiler(Alquiler alquiler) {
-		this.alquileres.add(alquiler);
-	}
+	
 	
 	public void addReserva(Reserva reserva) {
 		this.reservas.add(reserva);
@@ -213,6 +206,15 @@ public class Inmueble implements IRankeable, Notificador {
 	private Boolean periodoANotInPeriodoB(LocalDate inicioA, LocalDate finA, LocalDate inicioB, LocalDate finB) {
 		return (finA.isBefore(inicioB) || inicioA.isAfter(finB));
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@Override
 	public List<Notificado> getNotificados() {

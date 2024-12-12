@@ -20,7 +20,7 @@ class ReservaTest {
 	EstadoReserva aceptada;
 	EstadoReserva pendiente;
 	EstadoReserva cancelada;
-	EstadoReserva completada;
+	EstadoReserva condicional;
 	Usuario inquilino;
 
 	@BeforeEach
@@ -30,7 +30,7 @@ class ReservaTest {
 		aceptada = mock(ReservaAceptada.class);
 		pendiente   = mock(ReservaPendiente.class);
 		cancelada  = mock(ReservaCancelada.class);
-		
+		condicional = mock(ReservaCondicional.class);
 		reserva = new Reserva(LocalDate.now(), LocalDate.now().plusDays(10), inquilino);
 	}
 	
@@ -99,6 +99,15 @@ class ReservaTest {
 		when(r1.getEstado()).thenReturn(new ReservaCondicional());
 		assertTrue(r1.getEstado() instanceof ReservaCondicional);
 	}
+	@Test
+	void ReservaCondicionalCancelada() {
+		when(r1.getEstado()).thenReturn(new ReservaCondicional());
+		assertTrue(r1.getEstado() instanceof ReservaCondicional);
+		when(r1.getEstado()).thenReturn(condicional);
+		r1.cancelarReserva();
+		assertEquals(r1.getEstado(), condicional);
+		
+	}
 	
 	@Test
 	void aceptandoUnaReservaCondicionalTest() {
@@ -108,6 +117,10 @@ class ReservaTest {
 		
 		assertTrue(reserva.getEstado() instanceof ReservaPendiente);
 		
+	}
+	@Test
+	void inquilinoReservaTest() {
+		assertTrue(reserva.getInquilino() instanceof Usuario);
 	}
 
 }

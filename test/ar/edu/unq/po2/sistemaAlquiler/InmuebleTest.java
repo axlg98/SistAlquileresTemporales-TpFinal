@@ -46,8 +46,7 @@ class InmuebleTest {
 	private Set<String> 	  	fotos;
 	private FormaDePago			formaDePago;
 	private Set<FormaDePago> 	formasDePago;
-	private Alquiler			alquiler;
-	private Set<Alquiler>	  	alquileres;
+	
 	private Reserva				reserva1;
 	private Reserva				reserva2;
 	private Reserva				reserva3;
@@ -91,8 +90,7 @@ class InmuebleTest {
 		this.fotos				 = new HashSet<String>();
 		this.formaDePago		 = mock(FormaDePago.class);
 		
-		this.alquiler			 = mock(Alquiler.class);
-		this.alquileres			 = new HashSet<Alquiler>();
+		
 		this.reserva1			 = mock(Reserva.class);
 		this.reserva2			 = mock(Reserva.class);
 		this.reserva3			 = mock(Reserva.class);
@@ -281,11 +279,7 @@ class InmuebleTest {
 	}
 	
 	
-	@Test
-	void testGetAlquileres(){
-		List<Alquiler> alquileres = this.alquileres.stream().collect(Collectors.toList());
-		assertEquals(alquileres, inmueble.getAlquileres());
-	}
+
 	
 	@Test
 	void testGetReservas(){
@@ -340,13 +334,7 @@ class InmuebleTest {
 	
 	
 	
-	@Test
-	void testAddAlquiler() {
-		inmueble.addAlquiler(alquiler);
-		assertEquals(1, inmueble.getAlquileres().size());
-		inmueble.addAlquiler(alquiler);
-		assertEquals(1, inmueble.getAlquileres().size());
-	}
+	
 	
 	@Test
 	void testAddReserva() {
@@ -465,6 +453,25 @@ class InmuebleTest {
 		inmueble.addReserva(reserva3);
 		assertTrue(inmueble.isDisponible(LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 20)));
 		assertFalse(inmueble.isDisponible(LocalDate.of(2024, 12, 4), LocalDate.of(2024, 12, 10)));
+	}
+	@Test
+	void tipoDeInmuebleTest() {
+		when(tipoInmueble.getNombre()).thenReturn("Casa");	
+		assertEquals(inmueble.getTipoInmueble().getNombre(), "Casa");
+	}
+	
+	@Test
+	void formaDePagoTest() {
+		when(formaDePago.getNombre()).thenReturn("efectivo");
+		assertEquals(inmueble.getFormaDePago().getNombre(), "efectivo");
+	}
+	
+
+	
+	@Test
+	void informandoBajaDePrecioTest() {
+		inmueble.setPrecio(1.2);
+		assertEquals(inmueble.getPrecio(),1.2);
 	}
 
 }
