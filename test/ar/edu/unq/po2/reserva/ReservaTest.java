@@ -1,6 +1,7 @@
 package ar.edu.unq.po2.reserva;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -34,6 +35,7 @@ class ReservaTest {
 		reserva = new Reserva(LocalDate.now(), LocalDate.now().plusDays(10), inquilino);
 	}
 	
+
 	@Test
 	void fechaInicioTest() {
 		assertEquals(reserva.getFechaInicio(), LocalDate.now());
@@ -99,6 +101,7 @@ class ReservaTest {
 		when(r1.getEstado()).thenReturn(new ReservaCondicional());
 		assertTrue(r1.getEstado() instanceof ReservaCondicional);
 	}
+	
 	@Test
 	void ReservaCondicionalCancelada() {
 		when(r1.getEstado()).thenReturn(new ReservaCondicional());

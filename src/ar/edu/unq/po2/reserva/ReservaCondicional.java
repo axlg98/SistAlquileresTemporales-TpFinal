@@ -9,7 +9,7 @@ public class ReservaCondicional implements EstadoReserva{
 
 	@Override
 	public void cancelarReserva(Reserva reserva) {
-		reserva.setEstado(new ReservaCancelada());
+		
 		
 	}
 
