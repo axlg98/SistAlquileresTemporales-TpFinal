@@ -24,5 +24,8 @@ class FormaDePagoTest {
 	void testGetNombre() {
 		assertEquals("Efectivo", formaDePago.getNombre());
 	}
-
+	@Test
+	void testPago() {
+		assertEquals(this.formaDePago.pagar(10.0), 10.0);
+	}
 }

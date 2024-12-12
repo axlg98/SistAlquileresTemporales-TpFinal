@@ -28,7 +28,7 @@ public class Inmueble implements IRankeable, Notificador {
 	private IPoliticaCancelacion politicaCancelacion;
 	private Set<Servicio> 	  	servicios;
 	private Set<String> 	  	fotos;
-	private Set<FormaDePago> 	formasDePago;
+	private FormaDePago	  		formaDePago;
 	private Set<Alquiler>	  	alquileres;
 	private Set<Reserva>	  	reservas;
 	private Set<Ranking>		rankeos;
@@ -36,7 +36,7 @@ public class Inmueble implements IRankeable, Notificador {
 	private Set<Notificado>		notificados;
 	
 	public Inmueble(Usuario propietario, TipoInmueble tipoInmueble, Double superficie, String pais, String ciudad, String direccion, int capacidad, LocalTime checkIn, 
-					LocalTime checkOut, Double precio, IPoliticaCancelacion politicaCancelacion, Set<Servicio> servicios, Set<String> fotos, Set<FormaDePago> formasDePago) {
+					LocalTime checkOut, Double precio, IPoliticaCancelacion politicaCancelacion, Set<Servicio> servicios, Set<String> fotos, FormaDePago formasDePago) {
 		this.propietario		 = propietario;
 		this.tipoInmueble 		 = tipoInmueble;
 		this.superficie   		 = superficie;
@@ -49,7 +49,7 @@ public class Inmueble implements IRankeable, Notificador {
 		this.precio 	  		 = precio;
 		this.servicios 	  		 = servicios;
 		this.fotos 		  		 = fotos;
-		this.formasDePago 		 = formasDePago;
+		this.formaDePago 		 = formasDePago;
 		this.politicaCancelacion = politicaCancelacion;
 		this.alquileres	  = new HashSet<Alquiler>();
 		this.reservas	  = new HashSet<Reserva>();
@@ -119,8 +119,8 @@ public class Inmueble implements IRankeable, Notificador {
 		return fotos.stream().collect(Collectors.toList());
 	}
 	
-	public List<FormaDePago> getFormasDePago() {
-		return formasDePago.stream().collect(Collectors.toList());
+	public FormaDePago getFormaDePago() {
+		return this.formaDePago;
 	}
 	
 	public List<Alquiler> getAlquileres() {
@@ -151,7 +151,7 @@ public class Inmueble implements IRankeable, Notificador {
 	}
 
 	public void addFormaDePago(FormaDePago formaDePago) {
-		this.formasDePago.add(formaDePago);
+		this.formaDePago = formaDePago;
 	}
 	
 	public void addAlquiler(Alquiler alquiler) {
@@ -172,17 +172,17 @@ public class Inmueble implements IRankeable, Notificador {
 	
 	public void cancelarReserva(Reserva reserva, LocalDate fechaCancelacion) {
 		if (this.getReservas().contains(reserva)) {
+			
 			this.costoPorCancelacion(reserva, fechaCancelacion);
 
 			this.informarCancelacion(this);
 		}
 	}
 	public void costoPorCancelacion(Reserva r, LocalDate fechaCancelacion) {
-		for (FormaDePago forma : formasDePago) {
+		
 			Double costo = this.politicaCancelacion.costoDeCancelacion(r, fechaCancelacion, this.getPrecio());
-			forma.pagar(costo);
-		}
-		r.cancelarReserva();
+			this.getFormaDePago().pagar(costo);
+			r.cancelarReserva();
 	}
 	
 	

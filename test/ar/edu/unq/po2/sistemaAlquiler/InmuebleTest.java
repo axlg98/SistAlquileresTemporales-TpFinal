@@ -90,7 +90,7 @@ class InmuebleTest {
 		this.servicios			 = new HashSet<Servicio>();
 		this.fotos				 = new HashSet<String>();
 		this.formaDePago		 = mock(FormaDePago.class);
-		this.formasDePago		 = new HashSet<FormaDePago>();
+		
 		this.alquiler			 = mock(Alquiler.class);
 		this.alquileres			 = new HashSet<Alquiler>();
 		this.reserva1			 = mock(Reserva.class);
@@ -113,7 +113,7 @@ class InmuebleTest {
 		
 		
 		this.inmueble			 = new Inmueble(propietario, tipoInmueble, superficie, pais, ciudad, direccion, capacidad, 
-												checkIn, checkOut, precio, politicaCancelacion, servicios, fotos, formasDePago);
+												checkIn, checkOut, precio, politicaCancelacion, servicios, fotos, formaDePago);
 		
 	}
 
@@ -280,11 +280,6 @@ class InmuebleTest {
 		assertEquals(fotos, inmueble.getFotos());
 	}
 	
-	@Test
-	void testGetFormasDePago(){
-		List<FormaDePago> formasDePago = this.formasDePago.stream().collect(Collectors.toList());
-		assertEquals(formasDePago, inmueble.getFormasDePago());
-	}
 	
 	@Test
 	void testGetAlquileres(){
@@ -343,13 +338,7 @@ class InmuebleTest {
 		assertEquals(2, inmueble.getFotos().size());
 	}
 	
-	@Test
-	void testAddFormaDePago() {
-		inmueble.addFormaDePago(formaDePago);
-		assertEquals(1, inmueble.getFormasDePago().size());
-		inmueble.addFormaDePago(formaDePago);
-		assertEquals(1, inmueble.getFormasDePago().size());
-	}
+	
 	
 	@Test
 	void testAddAlquiler() {
@@ -378,10 +367,7 @@ class InmuebleTest {
 		when(reserva1.getFechaInicio()).thenReturn(LocalDate.of(2024, 12, 1));
 		when(reserva1.getFechaFin()).thenReturn(LocalDate.of(2024, 12, 5));
 		
-		when(reserva2.getFechaInicio()).thenReturn(LocalDate.of(2024, 12, 6));
-		when(reserva2.getFechaFin()).thenReturn(LocalDate.of(2024, 12, 10));
-		
-		when(cancelacionGratuita.costoDeCancelacion(reserva1, LocalDate.of(2024, 11, 20), inmueble.getPrecio())).thenReturn(0.0);
+		when(politicaCancelacion.costoDeCancelacion(reserva1, LocalDate.of(2024, 11, 20), inmueble.getPrecio())).thenReturn(0.0);
 		inmueble.setPoliticaCancelacion(cancelacionGratuita);
 		
 		
@@ -391,8 +377,24 @@ class InmuebleTest {
 		assertEquals(cancelacionGratuita.costoDeCancelacion(reserva1,  LocalDate.of(2024, 11, 20), inmueble.getPrecio()), 0.0);
 		verify(reserva1, times(1)).cancelarReserva();
 		
-		inmueble.cancelarReserva(reserva2, LocalDate.of(2024, 11, 30));
-		verify(reserva2, times(0)).cancelarReserva();
+		
+	}
+	@Test
+	void testCancelarReservaConPoliticaIntermedia() {
+		when(reserva1.getFechaInicio()).thenReturn(LocalDate.of(2024, 12, 1));
+		when(reserva1.getFechaFin()).thenReturn(LocalDate.of(2024, 12, 5));
+		
+		when(intermedia.costoDeCancelacion(reserva1, LocalDate.of(2024, 11, 20), inmueble.getPrecio())).thenReturn(0.0);
+		inmueble.setPoliticaCancelacion(cancelacionGratuita);
+		
+		
+		inmueble.addReserva(reserva1);
+		inmueble.cancelarReserva(reserva1, LocalDate.of(2024, 11, 30) );
+		
+		assertEquals(cancelacionGratuita.costoDeCancelacion(reserva1,  LocalDate.of(2024, 11, 20), inmueble.getPrecio()), 0.0);
+		verify(reserva1, times(1)).cancelarReserva();
+		
+		
 	}
 	// falta hacer para intermedia y Sin cancelacion
 	@Test

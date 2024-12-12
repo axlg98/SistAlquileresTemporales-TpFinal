@@ -30,6 +30,7 @@ class CancelacionGratuitaTest {
 		
 		assertEquals( 0 , cGratuita.costoDeCancelacion(reserva, LocalDate.of(2024,10,30), 100.0));
 	}
+	
 	@Test
 	void cancelacionGratuitaCuandoLaFechaCancelacionDia10AntesDeLafechaDeLaReserva() {
 		when(reserva.getFechaInicio()).thenReturn(LocalDate.of(2024,11, 10));
