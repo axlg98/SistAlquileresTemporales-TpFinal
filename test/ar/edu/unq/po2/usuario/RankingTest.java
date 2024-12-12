@@ -24,6 +24,8 @@ class RankingTest {
 	@Test
 	void testConstructor() {
 		assertNotNull(ranking);
+		
+		
 	}
 	
 	@Test
